@@ -163,28 +163,28 @@ CREATE INDEX `idx_notif_user_read`  ON `notifications`(`user_id`, `is_read`);
 -- Admin user (password: Admin@1234)
 INSERT INTO `users` (`name`,`email`,`phone`,`password`,`role`,`region`,`town`) VALUES
 ('Kweku Admin','admin@agrilink.gh','+233244000001',
- '$2y$12$Uq1TKvw2Q5ItlXXqHvXQoOfPtF7M1RKbStHHw0AIJPlEJYS0cVCGu','admin','Greater Accra','Accra');
+ '$2y$12$qABpsccCfJeJGFo1jsyaqeW6kwA.ZueBQCbMB0wrfOZVCtmCE4L0.','admin','Greater Accra','Accra');
 
 -- Farmer users (password: Pass@1234)
 INSERT INTO `users` (`name`,`email`,`phone`,`password`,`role`,`region`,`town`) VALUES
 ('Kofi Boateng','kofi.boateng@agrilink.gh','+233244111001',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','farmer','Ashanti','Kumasi'),
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','farmer','Ashanti','Kumasi'),
 ('Ama Serwaa','ama.serwaa@agrilink.gh','+233244111002',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','farmer','Brong-Ahafo','Sunyani'),
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','farmer','Brong-Ahafo','Sunyani'),
 ('Yaw Asante','yaw.asante@agrilink.gh','+233244111003',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','farmer','Northern','Tamale');
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','farmer','Northern','Tamale');
 
 -- Buyer users (password: Pass@1234)
 INSERT INTO `users` (`name`,`email`,`phone`,`password`,`role`,`region`,`town`) VALUES
 ('Kwame Mensah','kwame.mensah@agrilink.gh','+233244222001',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','buyer','Greater Accra','Accra'),
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','buyer','Greater Accra','Accra'),
 ('Abena Ofori','abena.ofori@agrilink.gh','+233244222002',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','buyer','Greater Accra','Tema');
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','buyer','Greater Accra','Tema');
 
 -- Transport users (password: Pass@1234)
 INSERT INTO `users` (`name`,`email`,`phone`,`password`,`role`,`region`,`town`) VALUES
 ('Kojo Transport','kojo.logistics@agrilink.gh','+233244333001',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','transport','Ashanti','Kumasi');
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','transport','Ashanti','Kumasi');
 
 -- Produce listings
 INSERT INTO `produce` (`farmer_id`,`name`,`category`,`description`,`quantity`,`unit`,`price_per_unit`,`region`,`town`,`grade`,`harvest_date`,`status`) VALUES

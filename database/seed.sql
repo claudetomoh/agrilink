@@ -11,22 +11,22 @@ USE `mobileapps_2026B_tomoh_ikfingeh`;
 -- ----------------------------------------------------------------
 -- Additional Users
 -- All test passwords: Pass@1234
--- Hash: $2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK
+-- Hash: $2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e
 -- ----------------------------------------------------------------
 INSERT IGNORE INTO `users` (`name`,`email`,`phone`,`password`,`role`,`region`,`town`) VALUES
 -- Additional farmers
 ('Akosua Twum','akosua.twum@agrilink.gh','+233244111004',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','farmer','Eastern','Koforidua'),
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','farmer','Eastern','Koforidua'),
 ('Nana Adu','nana.adu@agrilink.gh','+233244111005',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','farmer','Central','Cape Coast'),
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','farmer','Central','Cape Coast'),
 -- Additional buyers
 ('Efua Asante','efua.asante@agrilink.gh','+233244222003',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','buyer','Greater Accra','Osu, Accra'),
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','buyer','Greater Accra','Osu, Accra'),
 ('Fiifi Boateng','fiifi.boateng@agrilink.gh','+233244222004',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','buyer','Western','Takoradi'),
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','buyer','Western','Takoradi'),
 -- Additional transporter
 ('Afia Logistics','afia.transport@agrilink.gh','+233244333002',
- '$2y$12$sZ5gEX6LJNqpV5UF2pLMdOrn5RKjJhPXn2dXMtCq3Hb.I8HEfN3qK','transport','Greater Accra','Accra');
+ '$2y$12$Lmmm/jDsbgAoa/E64xe8xO2HGXDjRrYwpGcVmN7audLDerfDpn47e','transport','Greater Accra','Accra');
 
 -- ----------------------------------------------------------------
 -- Additional Produce Listings (from new farmers, ids 8 and 9)
