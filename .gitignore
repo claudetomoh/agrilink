@@ -1,0 +1,27 @@
+# Dependencies / packages
+vendor/
+node_modules/
+
+# Upload directory (user-generated content)
+public/uploads/produce/*
+!public/uploads/produce/.gitkeep
+
+# Environment / secrets
+.env
+.env.*
+app/config/secrets.php
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Deploy helper
+/deploy_setup.py
