@@ -231,11 +231,18 @@ class FarmerController {
     /**
      * Handle a produce image upload from $_FILES['produce_image'].
      * Returns the web path to save in the DB, or null if no file uploaded.
+     * Sets a flash error if the file is rejected.
      */
     private function handleImageUpload(int $farmerId): ?string {
         if (empty($_FILES['produce_image']['name'])) return null;
         $file = $_FILES['produce_image'];
-        if ($file['error'] !== UPLOAD_ERR_OK) return null;
+
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            if ($file['error'] !== UPLOAD_ERR_NO_FILE) {
+                Session::setFlash('error', 'Image upload failed (code ' . $file['error'] . '). Listing saved without image.');
+            }
+            return null;
+        }
 
         // Validate MIME type via finfo (not the user-supplied type)
         $finfo    = finfo_open(FILEINFO_MIME_TYPE);
@@ -243,13 +250,27 @@ class FarmerController {
         finfo_close($finfo);
 
         $allowed = ['image/jpeg', 'image/png', 'image/webp'];
-        if (!in_array($mimeType, $allowed, true)) return null;
-        if ($file['size'] > 2 * 1024 * 1024) return null; // 2 MB max
+        if (!in_array($mimeType, $allowed, true)) {
+            Session::setFlash('error', 'Only JPG, PNG, or WebP images are allowed. Listing saved without image.');
+            return null;
+        }
+
+        $maxBytes = 2 * 1024 * 1024; // 2 MB
+        if ($file['size'] > $maxBytes) {
+            Session::setFlash('error', 'Image must be under 2 MB. Listing saved without image.');
+            return null;
+        }
 
         $ext      = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'][$mimeType];
         $filename = 'produce_' . $farmerId . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
         $dir      = BASE_PATH . '/public/uploads/produce/';
         if (!is_dir($dir)) mkdir($dir, 0755, true);
+
+        // Block PHP execution inside uploads directory if .htaccess is missing
+        $htaccess = $dir . '.htaccess';
+        if (!file_exists($htaccess)) {
+            file_put_contents($htaccess, "Options -ExecCGI\nAddHandler cgi-script .php .php3 .php4 .php5 .phtml .pl .py\n");
+        }
 
         if (move_uploaded_file($file['tmp_name'], $dir . $filename)) {
             return '/uploads/produce/' . $filename;

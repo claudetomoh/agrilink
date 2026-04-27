@@ -11,6 +11,9 @@ public/uploads/produce/*
 .env.*
 app/config/secrets.php
 
+# Database credentials — NEVER commit the real config
+app/config/config.php
+
 # Logs
 *.log
 logs/

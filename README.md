@@ -273,15 +273,13 @@ git pull origin main
 
 ## Demo Accounts
 
-All demo accounts use the password: **`Pass@1234`**
-
-| Role | Email | Notes |
-|------|-------|-------|
-| Admin | `admin@agrilink.gh` | Full platform access |
-| Farmer (Verified) | `kofi.boateng@agrilink.gh` | Verified badge, active listings |
-| Farmer (Unverified) | `ama.owusu@agrilink.gh` | Unverified status |
-| Buyer | `efua.asante@agrilink.gh` | Active orders and bids |
-| Transport | `kweku.mensah@agrilink.gh` | Active delivery jobs |
+| Role | Email | Password | Notes |
+|------|-------|----------|-------|
+| Admin | `admin@agrilink.gh` | **`Admin@1234`** | Full platform access |
+| Farmer (Verified) | `kofi.boateng@agrilink.gh` | `Pass@1234` | Verified badge, active listings |
+| Farmer (Unverified) | `ama.owusu@agrilink.gh` | `Pass@1234` | Unverified status |
+| Buyer | `efua.asante@agrilink.gh` | `Pass@1234` | Active orders and bids |
+| Transport | `kweku.mensah@agrilink.gh` | `Pass@1234` | Active delivery jobs |
 
 ---
 

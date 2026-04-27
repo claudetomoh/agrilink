@@ -116,3 +116,5 @@ if ($role === 'farmer') {
     </div>
   </div>
 </aside>
+<!-- Mobile sidebar overlay -->
+<div id="sidebar-overlay" class="overlay-sidebar" aria-hidden="true"></div>

@@ -21,9 +21,9 @@ class Helpers {
         return date($format, strtotime($datetime));
     }
 
-    /** Generate order reference like AL-XXXX. */
+    /** Generate a cryptographically random order reference like AL-A3F2B1. */
     public static function generateOrderRef(): string {
-        return 'AL-' . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
+        return 'AL-' . strtoupper(bin2hex(random_bytes(3)));
     }
 
     /** Status badge HTML. */

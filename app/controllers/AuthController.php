@@ -29,6 +29,19 @@ class AuthController {
             Auth::redirect('/login');
         }
 
+        // ── Rate limiting: max 5 attempts per 15 minutes ──────────────────
+        $now      = time();
+        $window   = 15 * 60;   // 15-minute window
+        $maxTries = 5;
+        $attempts = $_SESSION['_login_attempts'] ?? [];
+        // Prune attempts outside the window
+        $attempts = array_filter($attempts, fn($t) => $now - $t < $window);
+        if (count($attempts) >= $maxTries) {
+            $wait = $window - ($now - min($attempts));
+            Session::setFlash('error', 'Too many login attempts. Please wait ' . ceil($wait / 60) . ' minute(s) before trying again.');
+            Auth::redirect('/login');
+        }
+
         $email    = sanitize($_POST['email']    ?? '');
         $password = $_POST['password'] ?? '';
 
@@ -40,6 +53,9 @@ class AuthController {
         $user = $this->users->findByEmail($email);
 
         if (!$user || !password_verify($password, $user['password'])) {
+            // Record failed attempt
+            $attempts[] = $now;
+            $_SESSION['_login_attempts'] = array_values($attempts);
             Session::setFlash('error', 'Invalid email or password.');
             Auth::redirect('/login');
         }
@@ -49,6 +65,8 @@ class AuthController {
             Auth::redirect('/login');
         }
 
+        // Clear attempts on successful login
+        unset($_SESSION['_login_attempts']);
         Session::login($user);
         Auth::redirectToDashboard();
     }

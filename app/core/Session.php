@@ -11,10 +11,12 @@ class Session {
     public static function start(): void {
         if (session_status() === PHP_SESSION_NONE) {
             session_name(SESSION_NAME);
+            $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                    || (($_SERVER['SERVER_PORT'] ?? 80) == 443);
             session_set_cookie_params([
                 'lifetime' => SESSION_TIMEOUT,
                 'path'     => '/',
-                'secure'   => false,   // set to true on HTTPS
+                'secure'   => $isHttps,
                 'httponly' => true,
                 'samesite' => 'Strict',
             ]);
@@ -105,7 +107,12 @@ class Session {
     }
 
     public static function verifyCsrf(string $token): bool {
-        return isset($_SESSION['_csrf_token'])
+        $valid = isset($_SESSION['_csrf_token'])
             && hash_equals($_SESSION['_csrf_token'], $token);
+        if ($valid) {
+            // Rotate token after successful use
+            unset($_SESSION['_csrf_token']);
+        }
+        return $valid;
     }
 }

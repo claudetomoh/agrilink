@@ -50,7 +50,21 @@ class ProduceModel {
         }
 
         $whereSql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
-        $order    = $filters['order'] ?? 'p.created_at DESC';
+
+        // Whitelist ORDER BY to prevent SQL injection
+        $allowedOrders = [
+            'p.created_at DESC',
+            'p.created_at ASC',
+            'p.price_per_unit ASC',
+            'p.price_per_unit DESC',
+            'p.name ASC',
+            'p.quantity DESC',
+            'farmer_avg_rating DESC',
+        ];
+        $requestedOrder = $filters['order'] ?? 'p.created_at DESC';
+        $order = in_array($requestedOrder, $allowedOrders, true)
+            ? $requestedOrder
+            : 'p.created_at DESC';
 
         $sql = "SELECT p.*,
                        u.name AS farmer_name, u.region AS farmer_region,

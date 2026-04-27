@@ -59,14 +59,47 @@
     <!-- Regional Demand Heatmap (data-driven) -->
     <section class="bg-surface-container-lowest rounded-[2rem] overflow-hidden shadow-sm border border-outline-variant/10">
       <div class="p-6 pb-4 flex justify-between items-center">
-        <h3 class="text-xl font-bold tracking-tight">Regional Supply Overview</h3>
+        <h3 class="text-xl font-bold tracking-tight">Demand Heatmap of Ghana</h3>
         <span class="text-[11px] font-bold text-primary bg-primary-container px-3 py-1 rounded-full uppercase tracking-wider">
-          Live Data
+          Live Updates
         </span>
       </div>
 
+      <!-- Ghana Map Visual -->
+      <div class="relative overflow-hidden" style="height:320px;background:#0f2118;">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-3.3%2C4.5%2C1.2%2C11.2&amp;layer=mapnik"
+          class="absolute inset-0 w-full h-full border-0"
+          style="opacity:.55"
+          title="Ghana Demand Heatmap"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"></iframe>
+        <!-- Gradient fade to bottom -->
+        <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to bottom, transparent 55%, rgba(15,33,24,.85) 100%)"></div>
+        <!-- Overlay Data Nodes -->
+        <!-- Kumasi – mid Ghana -->
+        <div class="absolute glass-panel rounded-xl p-3 pointer-events-none z-10 border-l-4 border-amber-400 shadow-lg"
+             style="top:38%;left:35%;transform:translateX(-50%) translateY(-50%)">
+          <p class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Kumasi</p>
+          <p class="text-sm font-extrabold text-primary">High Demand</p>
+        </div>
+        <!-- Accra – south coast -->
+        <div class="absolute glass-panel rounded-xl p-3 pointer-events-none z-10 border-l-4 border-primary-container shadow-lg"
+             style="bottom:22%;left:38%;transform:translateX(-50%)">
+          <p class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Accra</p>
+          <p class="text-sm font-extrabold text-primary">Critical Volume</p>
+        </div>
+        <!-- Tamale – north -->
+        <div class="absolute glass-panel rounded-xl p-3 pointer-events-none z-10 border-l-4 border-tertiary-container shadow-lg"
+             style="top:18%;right:22%">
+          <p class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Tamale</p>
+          <p class="text-sm font-extrabold text-primary">Emerging Market</p>
+        </div>
+      </div>
+
+      <!-- Regional Supply Data Bars -->
       <?php if (!empty($regionCounts)): ?>
-      <div class="px-6 pb-6 space-y-3">
+      <div class="px-6 py-5 space-y-3">
         <?php
         $maxCount = max(array_column(array_values($regionCounts), 'count'));
         $colors   = ['#2c694e','#1e5d43','#3f6750','#126c4a','#006040','#004930'];
@@ -91,11 +124,8 @@
       </div>
       <?php else: ?>
       <div class="px-6 pb-6">
-        <div class="h-40 flex items-center justify-center bg-surface-container rounded-xl">
-          <div class="text-center">
-            <span class="material-symbols-outlined text-5xl text-outline">map</span>
-            <p class="text-on-surface-variant text-sm mt-2">No regional data available yet</p>
-          </div>
+        <div class="h-20 flex items-center justify-center bg-surface-container rounded-xl">
+          <p class="text-on-surface-variant text-sm">No regional data available yet</p>
         </div>
       </div>
       <?php endif; ?>

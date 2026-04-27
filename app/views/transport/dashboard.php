@@ -43,6 +43,113 @@
   <?php endforeach; ?>
 </div>
 
+<!-- Fleet Map Section -->
+<section class="mb-10">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- Left: Live Logistics Metrics -->
+    <div class="lg:col-span-3 flex flex-col gap-5">
+
+      <!-- Fleet Uptime -->
+      <div class="bg-surface-container-lowest rounded-2xl p-6 border-l-4 border-emerald-900 shadow-sm">
+        <p class="text-xs text-on-surface-variant font-bold uppercase tracking-wider mb-1">Fleet Uptime</p>
+        <div class="flex items-baseline gap-2">
+          <span class="text-4xl font-extrabold text-primary">98.4%</span>
+          <span class="text-green-600 text-sm font-bold flex items-center">
+            <span class="material-symbols-outlined" style="font-size:.875rem">arrow_upward</span> 2%
+          </span>
+        </div>
+        <p class="text-xs text-on-surface-variant mt-2">Real-time tracking active across your routes</p>
+      </div>
+
+      <!-- Next / Estimated Arrival -->
+      <div class="bg-surface-container-lowest rounded-2xl p-6 border-l-4 border-secondary shadow-sm">
+        <?php $nextDelivery = !empty($active) ? $active[0] : null; ?>
+        <p class="text-xs text-on-surface-variant font-bold uppercase tracking-wider mb-1">Next Arrival</p>
+        <div class="flex items-baseline gap-2">
+          <?php if ($nextDelivery && !empty($nextDelivery['estimated_arrival'])): ?>
+            <span class="text-4xl font-extrabold text-primary"><?= date('H:i', strtotime($nextDelivery['estimated_arrival'])) ?></span>
+            <span class="text-on-surface-variant text-sm font-medium">GMT</span>
+          <?php else: ?>
+            <span class="text-4xl font-extrabold text-primary">—</span>
+          <?php endif; ?>
+        </div>
+        <p class="text-xs text-on-surface-variant mt-2">
+          <?= $nextDelivery ? e($nextDelivery['origin'] ?? 'Origin') . ' ➔ ' . e($nextDelivery['destination'] ?? 'Destination') : 'No active route' ?>
+        </p>
+      </div>
+
+      <!-- Active Count Highlight -->
+      <div class="bg-primary-container rounded-2xl p-6 overflow-hidden relative flex-1 flex flex-col justify-between" style="min-height:120px">
+        <div class="relative z-10">
+          <p class="text-emerald-200/70 text-sm font-medium mb-1">Active Deliveries</p>
+          <h3 class="text-4xl font-bold text-white"><?= (int)($stats['active'] ?? 0) ?></h3>
+          <p class="text-xs text-emerald-100/60 mt-3 leading-relaxed">
+            Full route visibility &amp; on-time stewardship
+          </p>
+        </div>
+        <div class="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
+          <span class="material-symbols-outlined text-white" style="font-size:120px;font-variation-settings:'FILL' 1">local_shipping</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Map Container -->
+    <div class="lg:col-span-9 relative rounded-3xl overflow-hidden" style="min-height:420px;background:#112a1c;">
+
+      <!-- OpenStreetMap embed centered on Ghana -->
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-3.3%2C4.5%2C1.2%2C11.2&amp;layer=mapnik"
+        class="absolute inset-0 w-full h-full border-0"
+        style="opacity:.65"
+        title="Ghana Fleet Map"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin"></iframe>
+
+      <!-- Gradient overlay -->
+      <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(1,45,29,.45) 0%, transparent 60%)"></div>
+
+      <!-- Glass Fleet Tracker Panel -->
+      <div class="absolute top-5 left-5 glass-panel p-4 rounded-2xl shadow-md z-10 pointer-events-none" style="max-width:260px">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="pulse-dot w-3 h-3 rounded-full bg-emerald-500 inline-block" style="min-width:.75rem;min-height:.75rem"></span>
+          <span class="font-bold text-primary text-sm tracking-tight">Live Fleet Tracker</span>
+        </div>
+        <div class="space-y-3">
+          <?php if (!empty($active)): ?>
+            <?php foreach (array_slice($active, 0, 3) as $d): ?>
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined bg-emerald-100 text-emerald-900 rounded-lg p-1.5" style="font-size:1.125rem">local_shipping</span>
+              <div>
+                <p class="text-xs font-bold text-on-surface">DEL-<?= str_pad($d['id'], 4, '0', STR_PAD_LEFT) ?></p>
+                <p style="font-size:.625rem" class="text-on-surface-variant"><?= e($d['origin'] ?? 'Origin') ?> → <?= e($d['destination'] ?? 'Destination') ?></p>
+              </div>
+            </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <p class="text-xs text-on-surface-variant">No active routes</p>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <!-- Zoom/Layer controls (decorative) -->
+      <div class="absolute top-5 right-5 flex flex-col gap-2 z-10 pointer-events-none">
+        <div class="bg-white rounded-xl p-2.5 shadow-md text-primary flex items-center justify-center">
+          <span class="material-symbols-outlined" style="font-size:1.125rem">add</span>
+        </div>
+        <div class="bg-white rounded-xl p-2.5 shadow-md text-primary flex items-center justify-center">
+          <span class="material-symbols-outlined" style="font-size:1.125rem">remove</span>
+        </div>
+        <div class="bg-primary rounded-xl p-2.5 shadow-md text-white flex items-center justify-center">
+          <span class="material-symbols-outlined" style="font-size:1.125rem">layers</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- Active Deliveries -->
 <div class="mb-8">
   <div class="flex items-center justify-between mb-5">

@@ -38,6 +38,9 @@ define('GH_REGIONS', [
     'Western North',
 ]);
 
-// Error reporting (set to 0 on production)
-ini_set('display_errors', 1);
+// Error reporting — never expose errors to end users in production
+$isLocal = in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'], true)
+        || ($_SERVER['SERVER_NAME'] ?? '') === 'localhost';
+ini_set('display_errors', $isLocal ? '1' : '0');
+ini_set('log_errors', '1');
 error_reporting(E_ALL);

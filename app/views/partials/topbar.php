@@ -8,7 +8,7 @@ $role          = Session::userRole();
 ?>
 <header class="topbar topbar-dark" style="position:sticky;top:0;z-index:50;padding:0 1.5rem;">
   <!-- Hamburger (mobile) -->
-  <button class="btn btn-icon" id="menuToggle" onclick="toggleSidebar()"
+  <button class="btn btn-icon" id="sidebar-toggle"
           style="display:none;background:rgba(255,255,255,.08);color:#fff"
           aria-label="Toggle sidebar">
     <span class="material-symbols-outlined">menu</span>
