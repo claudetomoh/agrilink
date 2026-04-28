@@ -50,8 +50,8 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
     <?php foreach ($recommended as $rec): ?>
     <a href="<?= APP_URL ?>/buyer/product?id=<?= $rec['id'] ?>"
-       class="bg-gradient-to-br from-primary-container to-primary-container/60 rounded-[1.5rem] p-5
-              border border-primary-container/30 hover:shadow-lg transition-all no-underline block"
+       class="bg-gradient-to-br from-primary to-primary-dim rounded-[1.5rem] p-5
+              border border-primary/30 hover:shadow-lg transition-all no-underline block"
        style="text-decoration:none;color:inherit">
       <div class="flex items-center gap-3 mb-3">
         <div class="w-11 h-11 rounded-xl overflow-hidden flex-shrink-0">

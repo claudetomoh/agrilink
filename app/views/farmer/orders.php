@@ -62,7 +62,7 @@
           <td class="px-6 py-5 font-mono text-sm font-bold text-primary">#<?= str_pad($o['id'], 4, '0', STR_PAD_LEFT) ?></td>
           <td class="px-6 py-5">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white text-xs font-bold">
+              <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">
                 <?= strtoupper(substr($o['buyer_name'] ?? 'B', 0, 1)) ?>
               </div>
               <span class="font-semibold text-sm"><?= e($o['buyer_name'] ?? '—') ?></span>

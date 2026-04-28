@@ -53,7 +53,7 @@
         <tr class="hover:bg-surface-container-low/30 transition-colors <?= empty($u['is_active']) ? 'opacity-50' : '' ?>">
           <td class="px-6 py-4">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+              <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                 <?= strtoupper(substr($u['name'],0,1)) ?>
               </div>
               <div>

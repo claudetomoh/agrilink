@@ -19,7 +19,7 @@
   <div class="lg:col-span-2 space-y-6">
 
     <!-- Route Card -->
-    <div class="bg-primary-container rounded-[2rem] p-8 text-white relative overflow-hidden">
+    <div class="bg-primary rounded-[2rem] p-8 text-white relative overflow-hidden">
       <div class="absolute top-0 right-0 p-6 opacity-10">
         <span class="material-symbols-outlined" style="font-size:6rem">local_shipping</span>
       </div>

@@ -82,7 +82,7 @@
       <div class="space-y-3">
         <?php foreach (array_slice($bids, 0, 5) as $bid): ?>
         <div class="flex items-center gap-4 py-3 border-b border-outline-variant/10 last:border-0">
-          <div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+          <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
             <?= strtoupper(substr($bid['buyer_name'] ?? 'B', 0, 1)) ?>
           </div>
           <div class="flex-1">
@@ -157,7 +157,7 @@
     <div class="bg-surface-container-low rounded-[1.5rem] p-5 border border-outline-variant/10">
       <h4 class="font-bold text-primary mb-3 text-sm">Seller Information</h4>
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white font-bold text-sm">
+        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm">
           <?= strtoupper(substr($listing['farmer_name'] ?? 'F', 0, 1)) ?>
         </div>
         <div>
