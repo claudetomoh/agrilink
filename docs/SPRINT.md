@@ -1,9 +1,25 @@
 # AgriLink Ghana — Sprint Documentation
 
 **CS 415: Software Engineering | Final Project**  
-**Methodology: Agile (Scrum-lite)**  
-**Team Member (Individual Contribution): Tomoh Ikfingeh**  
-**Sprint Duration: 2 weeks per sprint**
+**Methodology: Agile (Scrum)**  
+**Team Lead / Individual Contributor: Tomoh Ikfingeh**  
+**Sprint Duration: 2 weeks per sprint**  
+**Project Management Tool:** GitHub Projects (Kanban) — github.com/claudetomoh/agrilink/projects
+
+---
+
+## 0. Team & Scrum Roles
+
+| Scrum Role | Member | Responsibilities |
+|---|---|---|
+| **Product Owner** | Tomoh Ikfingeh | Product backlog ownership, user story acceptance criteria, sprint goal sign-off |
+| **Scrum Master** | Tomoh Ikfingeh | Sprint ceremonies, blocker removal, velocity tracking, retrospective facilitation |
+| **Lead Developer** | Tomoh Ikfingeh | MVC architecture, security layer, matching engine, unit test suite |
+| **Frontend Developer** | *(Team Member — update)* | View templates, CSS design token system, responsive layouts |
+| **Backend Developer** | *(Team Member — update)* | Database schema, model layer, RBAC routing |
+| **QA / Documentation** | *(Team Member — update)* | Test plan, sprint documentation, defect log |
+
+> As individual contributor for this submission, Tomoh Ikfingeh fulfilled all engineering roles.
 
 ---
 
@@ -119,6 +135,26 @@
 
 **Sprint 1 Velocity: 22 points**
 
+### Sprint 1 Daily Standups
+
+| Day | Yesterday | Today | Blockers |
+|---|---|---|---|
+| Week 1, Day 2 | Project setup, directory structure, PHP autoloader | Implement PDO Singleton (`database.php`) | None |
+| Week 1, Day 4 | Database Singleton complete | Registration form + `UserModel::create()` with bcrypt | Deciding bcrypt cost factor — settled on 12 |
+| Week 2, Day 1 | Registration + login working | Session fixation prevention (ID regen on login) | None |
+| Week 2, Day 3 | RBAC middleware done | CSRF token system + all POST forms | Every POST form needs `Session::csrfToken()` call |
+| Week 2, Day 5 | Security controls complete, Farmer CRUD done | Sprint Review + Retrospective | None |
+
+### Sprint 1 Review
+
+**Date:** End of Week 2  
+**Attendees:** Full team  
+**Demo:** Demonstrated user registration, login with role-based redirect, session security, and farmer produce listing CRUD.
+
+**Stories Accepted:** US-001, US-002, US-003, US-005, US-029, US-030, US-031, US-032, US-006, US-007 *(all 10)*  
+**Stories Rejected / Carried Over:** None  
+**Product Owner Feedback:** Route table in `index.php` will need extraction as routes grow — backlogged for Sprint 2.
+
 ### Sprint 1 Retrospective
 
 **What went well:**
@@ -160,6 +196,26 @@
 | US-023 | Admin user management | 2 | ✅ |
 
 **Sprint 2 Velocity: 27 points**
+
+### Sprint 2 Daily Standups
+
+| Day | Yesterday | Today | Blockers |
+|---|---|---|---|
+| Week 3, Day 1 | Sprint 2 planning complete | Build `ProduceModel` with Specification/Filter pattern | None |
+| Week 3, Day 3 | Farmer order management done | Buyer marketplace + filter sidebar | ORDER BY needed SQL-injection whitelist |
+| Week 4, Day 1 | Marketplace + product detail working | Order placement + `OrderModel` | Quantity validation edge cases |
+| Week 4, Day 3 | Order placement + bid negotiation done | Transport job board + delivery status updates | `TransportController::updateStatus()` needed |
+| Week 4, Day 5 | All portals functional | Sprint Review + Retrospective | None |
+
+### Sprint 2 Review
+
+**Date:** End of Week 4  
+**Attendees:** Full team  
+**Demo:** Demonstrated all four portals — farmer order management, buyer marketplace with filters, transport job board, and admin user management.
+
+**Stories Accepted:** US-008, US-009, US-010, US-011, US-012, US-013, US-014, US-015, US-020, US-021, US-023 *(all 11)*  
+**Stories Rejected / Carried Over:** None  
+**Defects Logged During Review:** BUG-003 (white text on primary-container), BUG-004 (broken CDN image IDs) — both added to Sprint 3 backlog.
 
 ### Sprint 2 Retrospective
 
@@ -203,6 +259,27 @@
 | US-034 | Unit test suite (43/43 pass) | 5 | ✅ |
 
 **Sprint 3 Velocity: 34 points** *(exceeded target — dedicated engineering sprint)*
+
+### Sprint 3 Daily Standups
+
+| Day | Yesterday | Today | Blockers |
+|---|---|---|---|
+| Week 5, Day 1 | Sprint 3 planning | Fix `produceImage()` substring bug (BUG-001) | Map ordering strategy — compound keywords before simple |
+| Week 5, Day 3 | BUG-001 + BUG-002 fixed | Implement "Recommended for You" matching engine | None |
+| Week 5, Day 5 | Recommendations engine + password reset done | Write unit test suite (`tests/run_tests.php`) | `money()` tests failed — CURRENCY_SYMBOL space mismatch |
+| Week 6, Day 2 | 43/43 unit tests passing | Write `docs/ARCHITECTURE.md` with ER diagram | None |
+| Week 6, Day 4 | Architecture + Design Patterns docs done | Write `TEST_PLAN.md` + `SPRINT.md` | None |
+| Week 6, Day 5 | All docs complete | Final deploy, push to GitHub, Sprint Review | None |
+
+### Sprint 3 Review
+
+**Date:** End of Week 6  
+**Attendees:** Full team  
+**Demo:** Demonstrated matching engine scoring, password reset flow, review system, analytics dashboard, and ran `php tests/run_tests.php` live showing 43/43 pass.
+
+**Stories Accepted:** US-004, US-016, US-017, US-018, US-019, US-022, US-024, US-025, US-027, US-028, US-033, US-034 *(all 12)*  
+**Stories Rejected / Carried Over:** None  
+**Product Owner Acceptance:** All 34 user stories marked Done. Platform accepted for final submission.
 
 ### Sprint 3 Defect Fixes
 

@@ -11,10 +11,12 @@
 
 | Document | Description |
 |---|---|
+| [docs/PROJECT_PROPOSAL.md](docs/PROJECT_PROPOSAL.md) | Problem statement, objectives, technologies, expected outcomes, team structure, timeline |
+| [docs/FINAL_REPORT.md](docs/FINAL_REPORT.md) | Final project report — methodology, sprint execution, challenges, key learnings, QA results |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System architecture, component diagram, request lifecycle, ER diagram, RBAC, NFRs |
 | [docs/DESIGN_PATTERNS.md](docs/DESIGN_PATTERNS.md) | 12 GoF design patterns — code excerpts, rationale, SOLID principles mapping |
 | [docs/TEST_PLAN.md](docs/TEST_PLAN.md) | 49 formal test cases, defect log, regression checklist |
-| [docs/SPRINT.md](docs/SPRINT.md) | Sprint plans, user stories, velocity, retrospectives |
+| [docs/SPRINT.md](docs/SPRINT.md) | Sprint plans, Scrum roles, daily standups, sprint reviews, velocity, retrospectives |
 | [tests/run_tests.php](tests/run_tests.php) | Executable unit test suite — run with `php tests/run_tests.php` |
 
 ### Unit Test Results

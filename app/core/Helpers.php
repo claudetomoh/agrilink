@@ -1,32 +1,76 @@
 <?php
 /**
- * AgriLink – Utility helpers
+ * AgriLink – Utility helpers (Facade pattern).
+ *
+ * Centralises output escaping, currency formatting, pagination,
+ * supply-demand matching, status badge generation, and produce image
+ * resolution. Consumed by controllers and views throughout the application.
+ *
+ * @package AgriLink\Core
+ * @author  AgriLink Development Team
+ * @version 1.0.0
  */
 
 class Helpers {
 
-    /** Safely escape output. */
+    /**
+     * Escape a value for safe HTML output (XSS prevention).
+     *
+     * Uses ENT_QUOTES | ENT_SUBSTITUTE to escape both single and double
+     * quotes and replace invalid UTF-8 sequences.
+     *
+     * @param  mixed  $value  Any scalar or null value to escape.
+     * @return string         HTML-safe string.
+     */
     public static function e(mixed $value): string {
         return htmlspecialchars((string)($value ?? ''), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 
-    /** Format price in Ghana Cedis. */
+    /**
+     * Format an amount as Ghana Cedis currency.
+     *
+     * @param  float  $amount  Monetary amount to format.
+     * @return string          E.g. "₵1,250.00"
+     */
     public static function money(float $amount): string {
         return CURRENCY_SYMBOL . number_format($amount, 2);
     }
 
-    /** Format date in human-readable form. */
+    /**
+     * Format a datetime string into a human-readable date.
+     *
+     * @param  string  $datetime  Any strtotime-compatible datetime string.
+     * @param  string  $format    PHP date() format string. Default: 'M j, Y'.
+     * @return string             Formatted date, or em-dash for empty input.
+     */
     public static function date(string $datetime, string $format = 'M j, Y'): string {
         if (empty($datetime)) return '—';
         return date($format, strtotime($datetime));
     }
 
-    /** Generate a cryptographically random order reference like AL-A3F2B1. */
+    /**
+     * Generate a cryptographically secure order reference.
+     *
+     * Uses random_bytes() for CSPRNG entropy. Format: AL-XXXXXX
+     * where X is an uppercase hexadecimal character.
+     *
+     * @return string  E.g. "AL-A3F2B1"
+     * @throws \Exception If the OS CSPRNG is not available.
+     */
     public static function generateOrderRef(): string {
         return 'AL-' . strtoupper(bin2hex(random_bytes(3)));
     }
 
-    /** Status badge HTML. */
+    /**
+     * Render an HTML status badge (Factory Method pattern).
+     *
+     * Maps a status string to a pre-defined Tailwind CSS colour class pair
+     * and returns a styled <span> element. Unknown statuses fall back to
+     * a neutral grey badge with ucfirst capitalisation.
+     *
+     * @param  string  $status  Status key (e.g. 'pending', 'delivered').
+     * @return string           Safe HTML <span> badge element.
+     */
     public static function statusBadge(string $status): string {
         $map = [
             'available'   => ['bg-green-100 text-green-800',   'Available'],
@@ -46,13 +90,32 @@ class Helpers {
         return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ' . $classes . '">' . self::e($label) . '</span>';
     }
 
-    /** Redirect helper. */
+    /**
+     * Issue an HTTP redirect and terminate execution.
+     *
+     * @param  string  $url  Absolute URL to redirect to.
+     * @return never
+     */
     public static function redirect(string $url): never {
         header('Location: ' . $url);
         exit;
     }
 
-    /** Simple matching score (supply/demand). */
+    /**
+     * Compute a supply-demand match score (0–100) for a produce listing.
+     *
+     * Scoring dimensions:
+     *  +40  Produce region matches buyer's region
+     *  +30  Produce category matches buyer's preferred category
+     *  +20  Available quantity ≥ 10 units (buyer's minimum threshold)
+     *  +10  Price per unit ≤ ₵200 (within typical buyer budget)
+     *
+     * @param  array   $produce      Produce row with keys 'region', 'category',
+     *                               'quantity', 'price_per_unit'.
+     * @param  string  $buyerRegion  The buyer's preferred region.
+     * @param  string  $category     The buyer's preferred produce category.
+     * @return int                   Score in range [0, 100].
+     */
     public static function matchScore(array $produce, string $buyerRegion, string $category): int {
         $score = 0;
         if (strcasecmp($produce['region'], $buyerRegion) === 0) $score += 40;
@@ -62,7 +125,14 @@ class Helpers {
         return $score;
     }
 
-    /** Paginate an array. Returns [items, totalPages]. */
+    /**
+     * Paginate an array in memory.
+     *
+     * @param  array  $items    Full dataset to paginate.
+     * @param  int    $page     1-based current page number.
+     * @param  int    $perPage  Items per page. Default: 10.
+     * @return array            [pageItems[], totalPages, totalItems]
+     */
     public static function paginate(array $items, int $page, int $perPage = 10): array {
         $total = count($items);
         $pages = max(1, (int)ceil($total / $perPage));
@@ -70,7 +140,15 @@ class Helpers {
         return [$slice, $pages, $total];
     }
 
-    /** Strip tags and trim input. */
+    /**
+     * Strip HTML tags and trim whitespace from user input.
+     *
+     * Intended for plain-text fields. Does not replace Helpers::e() for output —
+     * always escape at the point of rendering.
+     *
+     * @param  string  $input  Raw user input string.
+     * @return string          Sanitised string with tags removed and whitespace trimmed.
+     */
     public static function sanitize(string $input): string {
         return trim(strip_tags($input));
     }

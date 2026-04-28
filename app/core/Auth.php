@@ -1,13 +1,29 @@
 <?php
 /**
- * AgriLink – Auth middleware helpers
+ * AgriLink – Authentication & Role-Based Access Control middleware (Strategy pattern).
+ *
+ * Implements the Chain of Responsibility pattern for route protection:
+ * every protected controller calls Auth::requireRole() as the first
+ * statement, ensuring authentication and authorisation are enforced
+ * uniformly before any business logic executes.
+ *
+ * @package AgriLink\Core
+ * @author  AgriLink Development Team
+ * @version 1.0.0
  */
 
 require_once __DIR__ . '/Session.php';
 
 class Auth {
 
-    /** Require user to be logged in. Redirect to login if not. */
+    /**
+     * Require an authenticated session.
+     *
+     * If no valid session exists, sets a flash error message and redirects
+     * the browser to the login page. Never returns if unauthenticated.
+     *
+     * @return void
+     */
     public static function require(): void {
         Session::start();
         if (!Session::isLoggedIn()) {
@@ -17,7 +33,16 @@ class Auth {
         }
     }
 
-    /** Require a specific role. */
+    /**
+     * Require the authenticated user to hold one of the given roles (Strategy pattern).
+     *
+     * Calls Auth::require() first to ensure authentication, then checks the
+     * session role against the $roles list. Responds with HTTP 403 and renders
+     * the 403 partial if the role is not permitted.
+     *
+     * @param  string|string[]  $roles  One role string or an array of permitted roles.
+     * @return void
+     */
     public static function requireRole(string|array $roles): void {
         self::require();
         $roles = (array) $roles;
@@ -28,7 +53,14 @@ class Auth {
         }
     }
 
-    /** Redirect if already logged in (for login/register pages). */
+    /**
+     * Redirect to the user's dashboard if already authenticated.
+     *
+     * Used on login and register pages to prevent authenticated users from
+     * accessing those forms unnecessarily.
+     *
+     * @return void
+     */
     public static function redirectIfLoggedIn(): void {
         Session::start();
         if (Session::isLoggedIn()) {
@@ -36,8 +68,15 @@ class Auth {
         }
     }
 
-    /** Redirect user to their role dashboard. */
-    public static function redirectToDashboard(): void {
+    /**
+     * Redirect to the role-appropriate dashboard and terminate.
+     *
+     * Role-to-URL mapping is centralised here so changing a dashboard route
+     * requires editing only this method.
+     *
+     * @return never
+     */
+    public static function redirectToDashboard(): never {
         $role = Session::userRole();
         $url = match($role) {
             'farmer'    => APP_URL . '/farmer/dashboard',
@@ -50,7 +89,14 @@ class Auth {
         exit;
     }
 
-    /** Redirect to a path. Prepends APP_URL for relative paths. */
+    /**
+     * Issue an HTTP redirect and terminate.
+     *
+     * Relative paths (not starting with "http") are prefixed with APP_URL.
+     *
+     * @param  string  $path  Absolute URL or app-relative path (e.g. '/login').
+     * @return never
+     */
     public static function redirect(string $path): never {
         $url = str_starts_with($path, 'http') ? $path : APP_URL . $path;
         header('Location: ' . $url);
