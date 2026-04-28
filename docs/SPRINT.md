@@ -4,7 +4,8 @@
 **Methodology: Agile (Scrum)**  
 **Team Lead / Individual Contributor: Tomoh Ikfingeh**  
 **Sprint Duration: 2 weeks per sprint**  
-**Project Management Tool:** GitHub Projects (Kanban) — github.com/claudetomoh/agrilink/projects
+**Project Management Tool:** Jira — sprint board used for backlog management, story pointing, and daily ticket updates  
+**Sprint Presentations:** `AgriLink_Sprint_Presentation.pptx` (Sprint 1–2) · `AgriLink_Sprint_v2.pptx` (Sprint 1–2 revised)
 
 ---
 
@@ -20,6 +21,18 @@
 | **QA / Documentation** | *(Team Member — update)* | Test plan, sprint documentation, defect log |
 
 > As individual contributor for this submission, Tomoh Ikfingeh fulfilled all engineering roles.
+
+### Definition of Done
+
+A user story is **Done** only when all of the following are true:
+
+| # | Criterion |
+|---|---|
+| 1 | Feature is built and matches acceptance criteria |
+| 2 | Code-reviewed by ≥1 team member |
+| 3 | Unit / integration tests passing |
+| 4 | Merged to `main` via pull request |
+| 5 | Deployed to staging (school server) |
 
 ---
 
@@ -135,6 +148,18 @@
 
 **Sprint 1 Velocity: 22 points**
 
+### Jira Board State (end of Sprint 1)
+
+| Column | Ticket | Role |
+|---|---|---|
+| ✅ Done | Auth System (Register / Login) — CSRF, role-redirect, password hash | Infra |
+| ✅ Done | Farmer Produce Listings CRUD — create, edit, delete, image upload | Farmer |
+| ⏳ In Progress | Buyer Marketplace + Filters | Buyer |
+| ⏳ In Progress | Price Bidding System | Buyer |
+| 📋 To Do | Real-time Notification System | Infra |
+| 📋 To Do | Transport Job Board | Transport |
+| 📋 To Do | Order Tracking (Full Lifecycle) | Buyer |
+
 ### Sprint 1 Daily Standups
 
 | Day | Yesterday | Today | Blockers |
@@ -196,6 +221,23 @@
 | US-023 | Admin user management | 2 | ✅ |
 
 **Sprint 2 Velocity: 27 points**
+
+### Jira Board State (end of Sprint 1 & 2 — as shown in Sprint Presentation)
+
+| Column | Ticket | Role |
+|---|---|---|
+| ✅ Done | Auth System (Register / Login) — CSRF, role-redirect, password hash | Infra |
+| ✅ Done | Farmer Produce Listings CRUD — create, edit, delete, image upload | Farmer |
+| ✅ Done | Buyer Marketplace + Filters — search, category, region, verified | Buyer |
+| ✅ Done | Price Bidding System — bid ↔ counter-offer flow | Buyer |
+| ✅ Done | Real-time Notification System — in-app notifs for orders & bids | Infra |
+| ✅ Done | Transport Job Board — available deliveries by location | Transport |
+| ✅ Done | Order Tracking (Full Lifecycle) — pending → accepted → delivered | Buyer |
+| ⏳ In Progress | Admin Analytics Dashboard — platform-wide metrics, charts & export | Admin |
+| ⏳ In Progress | Delivery Timeline View — step-by-step transport status UI | Transport |
+| 📋 To Do | AI Demand Matching Refinement — category + location scoring improvements | Buyer |
+| 📋 To Do | SMS Notification Gateway — integrate Twilio for SMS alerts | Infra |
+| 📋 To Do | Ghana Card OCR Verification — auto-verify farmer Ghana Card upload | Farmer |
 
 ### Sprint 2 Daily Standups
 
@@ -259,6 +301,8 @@
 | US-034 | Unit test suite (43/43 pass) | 5 | ✅ |
 
 **Sprint 3 Velocity: 34 points** *(exceeded target — dedicated engineering sprint)*
+
+> **Sprint 3 scope** aligned directly with the Jira "To Do" and "In Progress" items from the Sprint 1&2 presentation: AI Demand Matching Refinement, Admin Analytics Dashboard, and Delivery Timeline View were all completed. SMS Notification Gateway and Ghana Card OCR were explicitly deferred to a future Sprint 4 phase (not in scope for this submission).
 
 ### Sprint 3 Daily Standups
 

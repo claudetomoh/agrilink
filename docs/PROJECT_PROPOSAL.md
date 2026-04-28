@@ -3,6 +3,7 @@
 **CS 415: Software Engineering | Week 3 Submission**  
 **Date:** February 2026  
 **Team:** AgriLink Development Team  
+**Source Document:** This proposal aligns with the approved *AgriLink Copilot Implementation Brief* (PDF) prepared prior to development.  
 
 ---
 
@@ -56,7 +57,7 @@ A machine-learning-inspired **Supply-Demand Matching Engine** scores every listi
 | **Database** | MySQL 8 via PDO | Relational model fits the marketplace entity relationships |
 | **Frontend** | Tailwind CSS + Material Symbols | Utility-first CSS with a design token system for consistency |
 | **Version Control** | GitHub | Industry-standard; enables CI, PR reviews, and issue tracking |
-| **Project Management** | GitHub Projects (Kanban board) | Native to the repo; tracks issues, user stories, sprint progress |
+| **Project Management** | Jira | Sprint board for backlog management, story pointing, and daily ticket updates |
 | **Deployment** | Shared LAMP hosting via SFTP | Matches the university server environment |
 | **Testing** | Custom PHP test runner (no PHPUnit dependency) | Standalone; runnable on any PHP 8+ installation |
 | **Maps** | OpenStreetMap / Leaflet.js embed | Open-source; no API key required |
