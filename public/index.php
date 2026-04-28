@@ -9,6 +9,7 @@ require_once BASE_PATH . '/app/config/database.php';
 require_once BASE_PATH . '/app/core/Session.php';
 require_once BASE_PATH . '/app/core/Auth.php';
 require_once BASE_PATH . '/app/core/Helpers.php';
+require_once BASE_PATH . '/app/core/Mailer.php';
 
 // Auto-load models
 foreach (glob(BASE_PATH . '/app/models/*.php') as $model) {
@@ -37,6 +38,8 @@ $routes = [
     // Auth
     'login'             => ['AuthController',    'showLogin'],
     'register'          => ['AuthController',    'showRegister'],
+    'forgot-password'   => ['AuthController',    'showForgotPassword'],
+    'reset-password'    => ['AuthController',    'showResetPassword'],
     'logout'            => ['AuthController',    'doLogout'],
     'auth/onboarding'   => ['AuthController',    'showOnboarding'],
 
@@ -109,6 +112,8 @@ if ($key !== null) {
         $action = $_POST['action'] ?? '';
         if ($action === 'login')    { $controller->doLogin();   exit; }
         if ($action === 'register') { $controller->doRegister(); exit; }
+        if ($action === 'forgot_password') { $controller->doForgotPassword(); exit; }
+        if ($action === 'reset_password') { $controller->doResetPassword(); exit; }
         if ($action === 'onboarding') { $controller->doOnboarding(); exit; }
         if ($action === 'add_listing')    { $controller->doAddListing();    exit; }
         if ($action === 'edit_listing')   { $controller->doEditListing();   exit; }

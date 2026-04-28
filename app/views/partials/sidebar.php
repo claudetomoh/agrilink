@@ -2,7 +2,36 @@
 // Sidebar nav helper — $navItems and $currentPage passed from view controller
 $role        = Session::userRole();
 $currentPage = $currentPage ?? '';
+$requestPath = trim(parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?? '', '/');
+$appPath     = trim(parse_url(APP_URL, PHP_URL_PATH) ?? '', '/');
+if ($appPath !== '' && str_starts_with($requestPath, $appPath)) {
+  $requestPath = trim(substr($requestPath, strlen($appPath)), '/');
+}
 $unread      = $unreadCount ?? 0;
+
+if ($currentPage === '') {
+  $currentPage = match (true) {
+    str_contains($requestPath, 'farmer/dashboard') => 'dashboard',
+    str_contains($requestPath, 'farmer/listings/add') => 'listing_add',
+    str_contains($requestPath, 'farmer/listings') => 'listings',
+    str_contains($requestPath, 'farmer/orders') => 'orders',
+    str_contains($requestPath, 'farmer/profile') => 'profile',
+    str_contains($requestPath, 'buyer/marketplace') => 'marketplace',
+    str_contains($requestPath, 'buyer/matching') => 'matching',
+    str_contains($requestPath, 'buyer/orders') => 'orders',
+    str_contains($requestPath, 'transport/dashboard') => 'dashboard',
+    str_contains($requestPath, 'transport/jobs') => 'jobs',
+    str_contains($requestPath, 'transport/delivery') => 'delivery',
+    str_contains($requestPath, 'admin/dashboard') => 'dashboard',
+    str_contains($requestPath, 'admin/users') => 'users',
+    str_contains($requestPath, 'admin/orders') => 'orders',
+    str_contains($requestPath, 'admin/deliveries') => 'deliveries',
+    str_contains($requestPath, 'analytics/market') => 'market',
+    str_contains($requestPath, 'analytics') => 'analytics',
+    str_contains($requestPath, 'notifications') => 'notifications',
+    default => '',
+  };
+}
 
 // Build nav items per role
 $navGroups = [];
@@ -37,6 +66,7 @@ if ($role === 'farmer') {
             ['label'=>'Market Analytics','icon'=>'bar_chart',     'href'=>APP_URL.'/analytics/market',  'key'=>'market'],
         ],
         'Account' => [
+      ['label'=>'Notifications','icon'=>'notifications',    'href'=>APP_URL.'/notifications',     'key'=>'notifications'],
             ['label'=>'Logout',       'icon'=>'logout',           'href'=>APP_URL.'/logout',            'key'=>'logout'],
         ],
     ];
@@ -45,8 +75,10 @@ if ($role === 'farmer') {
         '' => [
             ['label'=>'Dashboard',    'icon'=>'dashboard',        'href'=>APP_URL.'/transport/dashboard',  'key'=>'dashboard'],
             ['label'=>'Available Jobs','icon'=>'work_outline',    'href'=>APP_URL.'/transport/jobs',       'key'=>'jobs'],
+      ['label'=>'Active Delivery','icon'=>'local_shipping', 'href'=>APP_URL.'/transport/delivery',   'key'=>'delivery'],
         ],
         'Account' => [
+      ['label'=>'Notifications','icon'=>'notifications',    'href'=>APP_URL.'/notifications',        'key'=>'notifications'],
             ['label'=>'Logout',       'icon'=>'logout',           'href'=>APP_URL.'/logout',               'key'=>'logout'],
         ],
     ];
@@ -65,6 +97,7 @@ if ($role === 'farmer') {
             ['label'=>'Market Data',  'icon'=>'bar_chart',        'href'=>APP_URL.'/analytics/market',  'key'=>'market'],
         ],
         'Account' => [
+          ['label'=>'Notifications','icon'=>'notifications',    'href'=>APP_URL.'/notifications',     'key'=>'notifications'],
             ['label'=>'Logout',       'icon'=>'logout',           'href'=>APP_URL.'/logout',            'key'=>'logout'],
         ],
     ];
@@ -86,13 +119,18 @@ if ($role === 'farmer') {
       <?php if ($section): ?><div class="sidebar-section"><?= htmlspecialchars($section) ?></div><?php endif; ?>
       <?php foreach ($items as $item): ?>
         <a href="<?= htmlspecialchars($item['href']) ?>"
-           class="<?= $currentPage === $item['key'] ? 'active' : '' ?>"
+           class="sidebar-nav-link <?= $currentPage === $item['key'] ? 'active' : '' ?>"
            <?= $item['key']==='logout' ? 'onclick="return confirm(\'Log out of AgriLink?\')"' : '' ?>>
           <span class="material-symbols-outlined nav-icon"><?= htmlspecialchars($item['icon']) ?></span>
           <?= htmlspecialchars($item['label']) ?>
           <?php if ($item['key']==='orders' && ($pending ?? 0) > 0): ?>
             <span style="margin-left:auto;background:#dc2626;color:#fff;border-radius:100px;font-size:.65rem;font-weight:700;padding:0 .45rem;min-width:1.25rem;text-align:center">
               <?= (int)$pending ?>
+            </span>
+          <?php endif; ?>
+          <?php if ($item['key']==='notifications' && $unread > 0): ?>
+            <span style="margin-left:auto;background:#dc2626;color:#fff;border-radius:100px;font-size:.65rem;font-weight:700;padding:0 .45rem;min-width:1.25rem;text-align:center">
+              <?= $unread > 9 ? '9+' : $unread ?>
             </span>
           <?php endif; ?>
         </a>
@@ -116,5 +154,3 @@ if ($role === 'farmer') {
     </div>
   </div>
 </aside>
-<!-- Mobile sidebar overlay -->
-<div id="sidebar-overlay" class="overlay-sidebar" aria-hidden="true"></div>

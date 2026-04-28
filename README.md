@@ -1,14 +1,52 @@
 # AgriLink Ghana — Agricultural Marketplace Platform
 
-> A full-stack PHP MVC web application connecting Ghanaian farmers, buyers, and transport providers in a unified digital marketplace.
+> A full-stack PHP MVC web application connecting Ghanaian farmers, buyers, and transport providers in a unified digital marketplace. Built for **CS 415 Software Engineering** — demonstrating professional engineering practices across architecture, design patterns, testing, and security.
 
 **Live Demo:** [http://169.239.251.102:280/~tomoh.ikfingeh/agrilink/public/](http://169.239.251.102:280/~tomoh.ikfingeh/agrilink/public/)  
 **GitHub:** [https://github.com/claudetomoh/agrilink](https://github.com/claudetomoh/agrilink)
 
 ---
 
+## Engineering Documentation
+
+| Document | Description |
+|---|---|
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System architecture, component diagram, request lifecycle, ER diagram, RBAC, NFRs |
+| [docs/DESIGN_PATTERNS.md](docs/DESIGN_PATTERNS.md) | 12 GoF design patterns — code excerpts, rationale, SOLID principles mapping |
+| [docs/TEST_PLAN.md](docs/TEST_PLAN.md) | 49 formal test cases, defect log, regression checklist |
+| [docs/SPRINT.md](docs/SPRINT.md) | Sprint plans, user stories, velocity, retrospectives |
+| [tests/run_tests.php](tests/run_tests.php) | Executable unit test suite — run with `php tests/run_tests.php` |
+
+### Unit Test Results
+
+```
+Results: 43/43 passed  ✓  All tests PASS
+```
+
+Covering: `Helpers::e()`, `money()`, `generateOrderRef()`, `paginate()`, `matchScore()`, `statusBadge()`, `sanitize()`, `produceImage()` (with substring-safety regression tests).
+
+### Design Patterns Implemented (12)
+
+| Pattern | Category | Location |
+|---|---|---|
+| MVC | Architectural | Entire codebase |
+| Front Controller | Architectural | `public/index.php` |
+| Layered Architecture | Architectural | `core/` → `models/` → `views/` |
+| Repository | Data Access | All `*Model.php` files |
+| Singleton | Creational | `app/config/database.php` |
+| Factory Method | Creational | `Helpers::statusBadge()` |
+| Facade | Structural | `Auth.php`, `Session.php`, `Helpers.php` |
+| Strategy | Behavioural | `Auth::requireRole()` — per-role redirect logic |
+| Observer | Behavioural | `NotificationModel::create()` — event-driven notifications |
+| Template Method / Composite View | Structural | Shared `partials/` (head, sidebar, topbar, foot) |
+| Specification / Filter Builder | Behavioural | `ProduceModel::getAll(array $filters)` |
+| Chain of Responsibility | Behavioural | Controller middleware stack |
+
+---
+
 ## Table of Contents
 
+- [Engineering Documentation](#engineering-documentation)
 - [Overview](#overview)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -339,13 +377,21 @@ All routes are handled by `public/index.php` via URL query parameter `?url=`.
 
 ## Screenshots
 
-> Screenshots coming soon. Visit the [live demo](http://169.239.251.102:280/~tomoh.ikfingeh/agrilink/public/) to see the platform in action.
+> Visit the [live demo](http://169.239.251.102:280/~tomoh.ikfingeh/agrilink/public/) to see the platform in action.
+
+| Page | URL |
+|---|---|
+| Farmer Dashboard | `/farmer/dashboard` |
+| Buyer Marketplace | `/buyer/marketplace` |
+| Supply/Demand Matching | `/buyer/matching` |
+| Admin Dashboard | `/admin/dashboard` |
+| Analytics | `/analytics` |
 
 ---
 
 ## Contributing
 
-This project was developed as part of a university web development course. Pull requests are welcome for bug fixes and improvements.
+This project was developed as part of a university Software Engineering course (CS 415). Pull requests are welcome for bug fixes and improvements.
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/your-feature`
@@ -357,4 +403,4 @@ This project was developed as part of a university web development course. Pull 
 
 ## License
 
-This project is for educational purposes. All rights reserved © 2025 Tomoh Ikfingeh.
+This project is for educational purposes. All rights reserved © 2026 Tomoh Ikfingeh.

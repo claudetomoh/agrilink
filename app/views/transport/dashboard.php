@@ -26,7 +26,7 @@
 <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
   <?php
   $cards = [
-    ['label'=>'Active Deliveries', 'value'=>$stats['active'],    'icon'=>'local_shipping', 'color'=>'bg-primary-container text-white'],
+    ['label'=>'Active Deliveries', 'value'=>$stats['active'],    'icon'=>'local_shipping', 'color'=>'bg-primary text-white'],
     ['label'=>'Pending Jobs',      'value'=>$stats['pending'],   'icon'=>'schedule',       'color'=>'bg-secondary-container text-on-secondary-container'],
     ['label'=>'Completed',         'value'=>$stats['completed'], 'icon'=>'inventory',      'color'=>'bg-surface-container-low text-primary'],
     ['label'=>'Total Earnings',    'value'=>'₵'.number_format($stats['earnings'],0), 'icon'=>'payments', 'color'=>'bg-surface-container-low text-primary'],
@@ -80,7 +80,7 @@
       </div>
 
       <!-- Active Count Highlight -->
-      <div class="bg-primary-container rounded-2xl p-6 overflow-hidden relative flex-1 flex flex-col justify-between" style="min-height:120px">
+      <div class="bg-primary rounded-2xl p-6 overflow-hidden relative flex-1 flex flex-col justify-between" style="min-height:120px">
         <div class="relative z-10">
           <p class="text-emerald-200/70 text-sm font-medium mb-1">Active Deliveries</p>
           <h3 class="text-4xl font-bold text-white"><?= (int)($stats['active'] ?? 0) ?></h3>
@@ -206,7 +206,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-5">
 
     <!-- Score Circle -->
-    <div class="lg:col-span-1 bg-primary-container rounded-[1.5rem] p-6 flex flex-col items-center justify-center text-white relative overflow-hidden">
+    <div class="lg:col-span-1 bg-primary rounded-[1.5rem] p-6 flex flex-col items-center justify-center text-white relative overflow-hidden">
       <div class="absolute inset-0 opacity-5 flex items-center justify-center">
         <span class="material-symbols-outlined" style="font-size:8rem">speed</span>
       </div>

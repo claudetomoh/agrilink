@@ -7,9 +7,11 @@ require_once __DIR__ . '/../config/database.php';
 
 class DeliveryModel {
     private PDO $db;
+    private string $userTable;
 
     public function __construct() {
         $this->db = Database::connect();
+        $this->userTable = USER_TABLE;
     }
 
     public function createForOrder(int $orderId, string $origin, string $destination): int {
@@ -27,10 +29,10 @@ class DeliveryModel {
                        t.name AS transport_name, t.phone AS transport_phone
                 FROM deliveries d
                 JOIN orders  o ON o.id = d.order_id
-                JOIN users   b ON b.id = o.buyer_id
-                JOIN users   f ON f.id = o.farmer_id
+                JOIN {$this->userTable} b ON b.id = o.buyer_id
+                JOIN {$this->userTable} f ON f.id = o.farmer_id
                 JOIN produce p ON p.id = o.produce_id
-                LEFT JOIN users t ON t.id = d.transport_id
+                LEFT JOIN {$this->userTable} t ON t.id = d.transport_id
                 WHERE d.id = ? LIMIT 1';
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
@@ -43,7 +45,7 @@ class DeliveryModel {
         return $stmt->fetch();
     }
 
-    public function getForTransport(int $transportId, string $status = null): array {
+    public function getForTransport(int $transportId, ?string $status = null): array {
         $where  = ['d.transport_id = ?'];
         $params = [$transportId];
         if ($status) { $where[] = 'd.status = ?'; $params[] = $status; }
@@ -53,8 +55,8 @@ class DeliveryModel {
                 FROM deliveries d
                 JOIN orders  o ON o.id = d.order_id
                 JOIN produce p ON p.id = o.produce_id
-                JOIN users   b ON b.id = o.buyer_id
-                JOIN users   f ON f.id = o.farmer_id
+                JOIN {$this->userTable} b ON b.id = o.buyer_id
+                JOIN {$this->userTable} f ON f.id = o.farmer_id
                 $whereSql ORDER BY d.created_at DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
@@ -67,14 +69,14 @@ class DeliveryModel {
                 FROM deliveries d
                 JOIN orders  o ON o.id = d.order_id
                 JOIN produce p ON p.id = o.produce_id
-                JOIN users   b ON b.id = o.buyer_id
-                JOIN users   f ON f.id = o.farmer_id
+                JOIN {$this->userTable} b ON b.id = o.buyer_id
+                JOIN {$this->userTable} f ON f.id = o.farmer_id
                 WHERE d.status = 'pending' AND d.transport_id IS NULL
                 ORDER BY d.created_at DESC";
         return $this->db->query($sql)->fetchAll();
     }
 
-    public function getAll(string $status = null): array {
+    public function getAll(?string $status = null): array {
         $where  = [];
         $params = [];
         if ($status) { $where[] = 'd.status = ?'; $params[] = $status; }
@@ -85,9 +87,9 @@ class DeliveryModel {
                 FROM deliveries d
                 JOIN orders  o ON o.id = d.order_id
                 JOIN produce p ON p.id = o.produce_id
-                JOIN users   b ON b.id = o.buyer_id
-                JOIN users   f ON f.id = o.farmer_id
-                LEFT JOIN users t ON t.id = d.transport_id
+                JOIN {$this->userTable} b ON b.id = o.buyer_id
+                JOIN {$this->userTable} f ON f.id = o.farmer_id
+                LEFT JOIN {$this->userTable} t ON t.id = d.transport_id
                 $whereSql ORDER BY d.created_at DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
@@ -181,7 +183,7 @@ class DeliveryModel {
 
     /* ── Aliases ─────────────────────────────────────────────────── */
     public function getById(int $id): array|false { return $this->findById($id); }
-    public function getByTransporter(int $transporterId, string $status = null): array { return $this->getForTransport($transporterId, $status); }
+    public function getByTransporter(int $transporterId, ?string $status = null): array { return $this->getForTransport($transporterId, $status); }
     public function getUnassigned(): array { return $this->getAvailableJobs(); }
     public function assignTransporter(int $deliveryId, int $transporterId): bool { return $this->acceptJob($deliveryId, $transporterId); }
 }

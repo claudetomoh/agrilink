@@ -3,14 +3,15 @@
 -- Run ONCE after schema.sql to add advanced feature columns.
 -- ================================================================
 
-USE `mobileapps_2026B_tomoh_ikfingeh`;
-
 -- ----------------------------------------------------------------
 -- Users: Add verification system columns
 -- ----------------------------------------------------------------
 ALTER TABLE `users`
   ADD COLUMN `is_verified` TINYINT(1) NOT NULL DEFAULT 0 AFTER `is_active`,
-  ADD COLUMN `verified_at` TIMESTAMP NULL DEFAULT NULL AFTER `is_verified`;
+  ADD COLUMN `verified_at` TIMESTAMP NULL DEFAULT NULL AFTER `is_verified`,
+  ADD COLUMN `password_reset_token` VARCHAR(255) DEFAULT NULL AFTER `verified_at`,
+  ADD COLUMN `password_reset_expires_at` DATETIME DEFAULT NULL AFTER `password_reset_token`,
+  ADD COLUMN `password_reset_requested_at` DATETIME DEFAULT NULL AFTER `password_reset_expires_at`;
 
 -- ----------------------------------------------------------------
 -- Produce: Add low stock threshold (alert when stock falls below)

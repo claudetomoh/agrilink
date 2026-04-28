@@ -134,8 +134,11 @@
         <?php foreach ($topProduce as $i => $p): ?>
         <div class="flex items-center justify-between py-3 hover:bg-surface-container-low px-3 rounded-xl transition-colors group">
           <div class="flex items-center gap-4">
-            <div class="w-9 h-9 bg-primary-container rounded-full flex items-center justify-center text-primary font-bold text-sm group-hover:bg-primary group-hover:text-on-primary transition-colors">
-              <?= $i + 1 ?>
+            <div class="relative flex-shrink-0">
+              <div class="w-11 h-11 rounded-2xl overflow-hidden shadow-sm">
+                <img src="<?= Helpers::produceImage($p['name'], $p['category'] ?? '') ?>" alt="<?= e($p['name']) ?>" class="w-full h-full object-cover">
+              </div>
+              <span class="absolute -top-1 -right-1 w-5 h-5 bg-primary text-on-primary rounded-full text-[10px] font-extrabold flex items-center justify-center shadow"><?= $i + 1 ?></span>
             </div>
             <div>
               <p class="font-bold text-sm"><?= e($p['name']) ?></p>

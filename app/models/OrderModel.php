@@ -8,9 +8,11 @@ require_once __DIR__ . '/../core/Helpers.php';
 
 class OrderModel {
     private PDO $db;
+    private string $userTable;
 
     public function __construct() {
         $this->db = Database::connect();
+        $this->userTable = USER_TABLE;
     }
 
     public function create(array $data): int {
@@ -52,8 +54,8 @@ class OrderModel {
                        d.id AS delivery_id, d.status AS delivery_status, d.vehicle_code,
                        d.origin, d.destination, d.estimated_arrival, d.picked_up_at, d.delivered_at
                 FROM orders o
-                JOIN users b ON b.id = o.buyer_id
-                JOIN users f ON f.id = o.farmer_id
+                JOIN {$this->userTable} b ON b.id = o.buyer_id
+                JOIN {$this->userTable} f ON f.id = o.farmer_id
                 JOIN produce p ON p.id = o.produce_id
                 LEFT JOIN deliveries d ON d.order_id = o.id
                 WHERE o.id = ? LIMIT 1';
@@ -83,8 +85,8 @@ class OrderModel {
                        d.status AS delivery_status
                 FROM orders o
                 JOIN produce p ON p.id = o.produce_id
-                JOIN users   b ON b.id = o.buyer_id
-                JOIN users   f ON f.id = o.farmer_id
+                JOIN {$this->userTable} b ON b.id = o.buyer_id
+                JOIN {$this->userTable} f ON f.id = o.farmer_id
                 LEFT JOIN deliveries d ON d.order_id = o.id
                 $whereSql
                 ORDER BY o.created_at DESC";
@@ -111,8 +113,8 @@ class OrderModel {
                        d.status AS delivery_status
                 FROM orders o
                 JOIN produce p ON p.id = o.produce_id
-                JOIN users   b ON b.id = o.buyer_id
-                JOIN users   f ON f.id = o.farmer_id
+                JOIN {$this->userTable} b ON b.id = o.buyer_id
+                JOIN {$this->userTable} f ON f.id = o.farmer_id
                 LEFT JOIN deliveries d ON d.order_id = o.id
                 $whereSql
                 ORDER BY o.created_at DESC";

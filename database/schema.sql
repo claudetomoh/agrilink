@@ -6,8 +6,6 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-USE `mobileapps_2026B_tomoh_ikfingeh`;
-
 -- ----------------------------------------------------------------
 -- Table: users
 -- ----------------------------------------------------------------
@@ -22,6 +20,9 @@ CREATE TABLE `users` (
   `town`          VARCHAR(100)  DEFAULT NULL,
   `profile_photo` VARCHAR(255)  DEFAULT NULL,
   `is_active`     TINYINT(1)   NOT NULL DEFAULT 1,
+  `password_reset_token` VARCHAR(255) DEFAULT NULL,
+  `password_reset_expires_at` DATETIME DEFAULT NULL,
+  `password_reset_requested_at` DATETIME DEFAULT NULL,
   `created_at`    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -15,7 +15,7 @@
 <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
   <?php
   $kpis = [
-    ['Total Users',       $stats['total_users'],      'people',         'bg-primary-container text-white'],
+    ['Total Users',       $stats['total_users'],      'people',         'bg-primary text-white'],
     ['Total Orders',      $stats['total_orders'],      'receipt_long',   'bg-secondary-container text-on-secondary-container'],
     ['Active Deliveries', $stats['active_deliveries'], 'local_shipping', 'bg-tertiary-container text-on-tertiary-container'],
     ['Total Revenue',     '₵'.number_format($stats['total_revenue'],0), 'payments', 'bg-surface-container-low text-primary'],
@@ -53,6 +53,35 @@
     </div>
   </div>
   <?php endforeach; ?>
+</div>
+
+<!-- Ghana Market Spotlight -->
+<div class="mb-10">
+  <div class="flex items-center justify-between mb-5">
+    <h3 class="text-xl font-bold text-primary">Market Spotlight — Key Commodities</h3>
+    <span class="text-xs text-on-surface-variant font-medium">Ghana's top traded produce</span>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <?php
+    $spotlight = [
+      ['Tomatoes',   'tomato',  'Brong-Ahafo',  'High demand, harvest season', '₵28–₵45/bag'],
+      ['Cocoa Pods', 'cocoa',   'Ashanti',       'Grade A export ready',         '₵320–₵410/bag'],
+      ['White Yam',  'yam',     'Brong-Ahafo',  'Surplus supply, stable price', '₵55–₵75/bag'],
+    ];
+    foreach ($spotlight as [$pname, $pcat, $region, $note, $price]):
+    ?>
+    <div class="relative rounded-[1.75rem] overflow-hidden shadow-sm group cursor-default" style="height:200px">
+      <img src="<?= Helpers::produceImage($pname, $pcat, 600) ?>" alt="<?= $pname ?>"
+           class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+        <p class="font-extrabold text-base leading-tight"><?= $pname ?></p>
+        <p class="text-xs opacity-70 mt-0.5"><?= $region ?> &bull; <?= $note ?></p>
+        <p class="text-sm font-bold mt-2 text-emerald-300"><?= $price ?></p>
+      </div>
+    </div>
+    <?php endforeach; ?>
+  </div>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -98,7 +127,7 @@
     <div class="divide-y divide-surface-container">
       <?php foreach ($recentUsers as $u): ?>
       <div class="flex items-center gap-4 px-6 py-4">
-        <div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+        <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
           <?= strtoupper(substr($u['name'],0,1)) ?>
         </div>
         <div class="flex-1 min-w-0">

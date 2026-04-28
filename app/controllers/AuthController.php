@@ -82,6 +82,123 @@ class AuthController {
         include BASE_PATH . '/app/views/auth/register.php';
     }
 
+    // GET /forgot-password
+    public function showForgotPassword(): void {
+        Auth::redirectIfLoggedIn();
+        $error   = Session::getFlash('error');
+        $success = Session::getFlash('success');
+        $info    = Session::getFlash('info');
+        $old     = Session::get('old_input', []);
+        Session::delete('old_input');
+        $resetLink = SHOW_PASSWORD_RESET_LINK ? Session::get('password_reset_demo_link') : null;
+        Session::delete('password_reset_demo_link');
+        include BASE_PATH . '/app/views/auth/forgot_password.php';
+    }
+
+    // POST /forgot-password
+    public function doForgotPassword(): void {
+        Auth::redirectIfLoggedIn();
+
+        if (!Session::verifyCsrf($_POST['_token'] ?? '')) {
+            Session::setFlash('error', 'Invalid security token. Please try again.');
+            Auth::redirect('/forgot-password');
+        }
+
+        $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            Session::setFlash('error', 'Enter a valid email address.');
+            Session::set('old_input', ['email' => $email]);
+            Auth::redirect('/forgot-password');
+        }
+
+        $user = $this->users->findByEmail($email);
+        $mailSent = false;
+        if ($user) {
+            $token = bin2hex(random_bytes(32));
+            $tokenHash = password_hash($token, PASSWORD_DEFAULT);
+            $expiresAt = date('Y-m-d H:i:s', time() + 3600);
+            $this->users->storePasswordResetToken((int)$user['id'], $tokenHash, $expiresAt);
+            $resetLink = APP_URL . '/reset-password?token=' . urlencode($token);
+            if (ENABLE_EMAIL_DELIVERY) {
+                $mailSent = Mailer::sendPasswordReset($user['email'], $user['name'], $resetLink);
+            }
+            if (SHOW_PASSWORD_RESET_LINK) {
+                Session::set('password_reset_demo_link', $resetLink);
+            }
+        }
+
+        Session::setFlash('success', 'If the email exists, password reset instructions have been sent.');
+        if (SHOW_PASSWORD_RESET_LINK && !ENABLE_EMAIL_DELIVERY) {
+            Session::setFlash('info', 'Email delivery is not configured in this build, so the one-time reset link is shown below when available.');
+        } elseif (!empty($mailSent)) {
+            Session::setFlash('info', 'Check your inbox for the password reset link.');
+        } else {
+            Session::setFlash('info', 'If your account exists but no email arrives, contact ' . SUPPORT_EMAIL . ' for help completing the reset.');
+        }
+        Auth::redirect('/forgot-password');
+    }
+
+    // GET /reset-password
+    public function showResetPassword(): void {
+        Auth::redirectIfLoggedIn();
+        $token = trim($_GET['token'] ?? '');
+        if ($token === '') {
+            Session::setFlash('error', 'Your reset link is missing or invalid.');
+            Auth::redirect('/forgot-password');
+        }
+
+        $user = $this->users->findByValidPasswordResetToken($token);
+        if (!$user) {
+            Session::setFlash('error', 'This reset link is invalid or has expired. Request a new one.');
+            Auth::redirect('/forgot-password');
+        }
+
+        $error   = Session::getFlash('error');
+        $success = Session::getFlash('success');
+        $email   = $user['email'];
+        include BASE_PATH . '/app/views/auth/reset_password.php';
+    }
+
+    // POST /reset-password
+    public function doResetPassword(): void {
+        Auth::redirectIfLoggedIn();
+
+        if (!Session::verifyCsrf($_POST['_token'] ?? '')) {
+            Session::setFlash('error', 'Invalid security token. Please try again.');
+            Auth::redirect('/forgot-password');
+        }
+
+        $token    = trim($_POST['token'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $confirm  = $_POST['password_confirm'] ?? '';
+
+        if ($token === '') {
+            Session::setFlash('error', 'Your reset token is missing. Request a new link.');
+            Auth::redirect('/forgot-password');
+        }
+
+        $user = $this->users->findByValidPasswordResetToken($token);
+        if (!$user) {
+            Session::setFlash('error', 'This reset link is invalid or has expired. Request a new one.');
+            Auth::redirect('/forgot-password');
+        }
+
+        if (strlen($password) < 8) {
+            Session::setFlash('error', 'Password must be at least 8 characters.');
+            Auth::redirect('/reset-password?token=' . urlencode($token));
+        }
+
+        if ($password !== $confirm) {
+            Session::setFlash('error', 'Passwords do not match.');
+            Auth::redirect('/reset-password?token=' . urlencode($token));
+        }
+
+        $this->users->changePasswordAndClearReset((int)$user['id'], $password);
+        unset($_SESSION['_login_attempts']);
+        Session::setFlash('success', 'Your password has been reset. Sign in with your new password.');
+        Auth::redirect('/login');
+    }
+
     // POST /register  (action=register)
     public function doRegister(): void {
         Auth::redirectIfLoggedIn();

@@ -7,9 +7,11 @@ require_once __DIR__ . '/../config/database.php';
 
 class BidModel {
     private PDO $db;
+    private string $userTable;
 
     public function __construct() {
         $this->db = Database::connect();
+        $this->userTable = USER_TABLE;
     }
 
     public function create(array $data): int {
@@ -27,9 +29,9 @@ class BidModel {
     }
 
     public function getByProduce(int $produceId): array {
-        $sql = 'SELECT b.*, u.name AS buyer_name, u.region AS buyer_region, u.phone AS buyer_phone
-                FROM bids b JOIN users u ON u.id = b.buyer_id
-                WHERE b.produce_id = ? ORDER BY b.created_at DESC';
+        $sql = "SELECT b.*, u.name AS buyer_name, u.region AS buyer_region, u.phone AS buyer_phone
+            FROM bids b JOIN {$this->userTable} u ON u.id = b.buyer_id
+            WHERE b.produce_id = ? ORDER BY b.created_at DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$produceId]);
         return $stmt->fetchAll();
@@ -39,9 +41,9 @@ class BidModel {
         $sql = 'SELECT b.*, p.name AS produce_name, u.name AS buyer_name
                 FROM bids b
                 JOIN produce p ON p.id = b.produce_id
-                JOIN users   u ON u.id = b.buyer_id
-                WHERE p.farmer_id = ? AND b.status = "pending"
-                ORDER BY b.created_at DESC';
+            JOIN ' . $this->userTable . ' u ON u.id = b.buyer_id
+            WHERE p.farmer_id = ? AND b.status = "pending"
+            ORDER BY b.created_at DESC';
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$farmerId]);
         return $stmt->fetchAll();

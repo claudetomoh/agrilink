@@ -7,25 +7,27 @@ require_once __DIR__ . '/../config/database.php';
 
 class UserModel {
     private PDO $db;
+    private string $table;
 
     public function __construct() {
         $this->db = Database::connect();
+        $this->table = USER_TABLE;
     }
 
     public function findByEmail(string $email): array|false {
-        $stmt = $this->db->prepare('SELECT * FROM users WHERE email = ? AND is_active = 1 LIMIT 1');
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE email = ? AND is_active = 1 LIMIT 1");
         $stmt->execute([$email]);
         return $stmt->fetch();
     }
 
     public function findById(int $id): array|false {
-        $stmt = $this->db->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
 
     public function create(array $data): int {
-        $sql = 'INSERT INTO users (name, email, phone, password, role, region, town) VALUES (?,?,?,?,?,?,?)';
+        $sql = "INSERT INTO {$this->table} (name, email, phone, password, role, region, town) VALUES (?,?,?,?,?,?,?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['name'],
@@ -50,43 +52,77 @@ class UserModel {
         }
         if (empty($fields)) return false;
         $params[] = $id;
-        $sql = 'UPDATE users SET ' . implode(', ', $fields) . ' WHERE id = ?';
+        $sql = 'UPDATE ' . $this->table . ' SET ' . implode(', ', $fields) . ' WHERE id = ?';
         return $this->db->prepare($sql)->execute($params);
     }
 
     public function emailExistsForOther(string $email, int $excludeId): bool {
-        $stmt = $this->db->prepare('SELECT COUNT(*) FROM users WHERE email = ? AND id != ?');
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM {$this->table} WHERE email = ? AND id != ?");
         $stmt->execute([$email, $excludeId]);
         return (bool) $stmt->fetchColumn();
     }
 
     public function changePassword(int $id, string $newPassword): bool {
-        $stmt = $this->db->prepare('UPDATE users SET password = ? WHERE id = ?');
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET password = ? WHERE id = ?");
         return $stmt->execute([password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]), $id]);
     }
 
-    public function getAll(string $role = null): array {
+    public function storePasswordResetToken(int $id, string $tokenHash, string $expiresAt): bool {
+        $stmt = $this->db->prepare(
+            "UPDATE {$this->table} SET password_reset_token = ?, password_reset_expires_at = ?, password_reset_requested_at = NOW() WHERE id = ?"
+        );
+        return $stmt->execute([$tokenHash, $expiresAt, $id]);
+    }
+
+    public function findByValidPasswordResetToken(string $token): array|false {
+        $stmt = $this->db->prepare(
+            "SELECT * FROM {$this->table} WHERE password_reset_token IS NOT NULL AND password_reset_expires_at IS NOT NULL AND password_reset_expires_at >= NOW()"
+        );
+        $stmt->execute();
+        foreach ($stmt->fetchAll() as $user) {
+            if (password_verify($token, $user['password_reset_token'])) {
+                return $user;
+            }
+        }
+        return false;
+    }
+
+    public function clearPasswordResetToken(int $id): bool {
+        $stmt = $this->db->prepare(
+            "UPDATE {$this->table} SET password_reset_token = NULL, password_reset_expires_at = NULL, password_reset_requested_at = NULL WHERE id = ?"
+        );
+        return $stmt->execute([$id]);
+    }
+
+    public function changePasswordAndClearReset(int $id, string $newPassword): bool {
+        $stmt = $this->db->prepare(
+            "UPDATE {$this->table} SET password = ?, password_reset_token = NULL, password_reset_expires_at = NULL, password_reset_requested_at = NULL WHERE id = ?"
+        );
+        return $stmt->execute([password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]), $id]);
+    }
+
+    public function getAll(?string $role = null): array {
         if ($role) {
-            $stmt = $this->db->prepare('SELECT id,name,email,phone,role,region,town,is_active,created_at FROM users WHERE role = ? ORDER BY created_at DESC');
+            $stmt = $this->db->prepare("SELECT id,name,email,phone,role,region,town,is_active,created_at FROM {$this->table} WHERE role = ? ORDER BY created_at DESC");
             $stmt->execute([$role]);
         } else {
-            $stmt = $this->db->query('SELECT id,name,email,phone,role,region,town,is_active,created_at FROM users ORDER BY created_at DESC');
+            $stmt = $this->db->query("SELECT id,name,email,phone,role,region,town,is_active,created_at FROM {$this->table} ORDER BY created_at DESC");
         }
         return $stmt->fetchAll();
     }
 
     public function toggleActive(int $id): bool {
-        $stmt = $this->db->prepare('UPDATE users SET is_active = NOT is_active WHERE id = ?');
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET is_active = NOT is_active WHERE id = ?");
         return $stmt->execute([$id]);
     }
 
     public function countByRole(): array {
-        $stmt = $this->db->query('SELECT role, COUNT(*) as total FROM users GROUP BY role');
+        $stmt = $this->db->query("SELECT role, COUNT(*) as total FROM {$this->table} GROUP BY role");
         return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
     }
 
     public function emailExists(string $email): bool {
-        $stmt = $this->db->prepare('SELECT COUNT(*) FROM users WHERE email = ?');
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM {$this->table} WHERE email = ?");
         $stmt->execute([$email]);
         return (bool) $stmt->fetchColumn();
     }
@@ -94,14 +130,14 @@ class UserModel {
     /** Mark a user as verified (admin action). */
     public function setVerified(int $id, bool $verified): bool {
         $sql = $verified
-            ? 'UPDATE users SET is_verified = 1, verified_at = NOW() WHERE id = ?'
-            : 'UPDATE users SET is_verified = 0, verified_at = NULL WHERE id = ?';
+            ? "UPDATE {$this->table} SET is_verified = 1, verified_at = NOW() WHERE id = ?"
+            : "UPDATE {$this->table} SET is_verified = 0, verified_at = NULL WHERE id = ?";
         return $this->db->prepare($sql)->execute([$id]);
     }
 
     /** Enable or disable a user account (admin action). */
     public function setActive(int $id, bool $active): bool {
-        return $this->db->prepare('UPDATE users SET is_active = ? WHERE id = ?')
+        return $this->db->prepare("UPDATE {$this->table} SET is_active = ? WHERE id = ?")
                         ->execute([(int)$active, $id]);
     }
 
@@ -120,7 +156,7 @@ class UserModel {
         }
         $whereSql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
         $stmt = $this->db->prepare(
-            "SELECT id,name,email,phone,role,region,town,is_active,is_verified,created_at FROM users $whereSql ORDER BY created_at DESC"
+            "SELECT id,name,email,phone,role,region,town,is_active,is_verified,created_at FROM {$this->table} $whereSql ORDER BY created_at DESC"
         );
         $stmt->execute($params);
         return $stmt->fetchAll();

@@ -131,7 +131,7 @@
 
   <!-- Info Sidebar -->
   <div class="space-y-5">
-    <div class="bg-primary-container rounded-[1.5rem] p-6">
+    <div class="bg-primary rounded-[1.5rem] p-6">
       <h3 class="font-bold text-white mb-3 flex items-center gap-2">
         <span class="material-symbols-outlined text-emerald-300">tips_and_updates</span> Listing Tips
       </h3>

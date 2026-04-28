@@ -5,6 +5,15 @@ $_userId       = Session::userId();
 $unread        = $_userId ? $_notifModel->countUnread($_userId) : 0;
 $_recentNotifs = $_userId ? $_notifModel->getForUser($_userId, 6) : [];
 $role          = Session::userRole();
+$roleLabel     = match ($role) {
+  'admin' => 'Administrator',
+  'farmer' => 'Farmer Workspace',
+  'buyer' => 'Buyer Workspace',
+  'transport' => 'Transport Workspace',
+  default => 'AgriLink',
+};
+$topbarTitle = $topbarTitle ?? ($pageTitle ?? 'Dashboard');
+$topbarSubtitle = $topbarSubtitle ?? $roleLabel;
 ?>
 <header class="topbar topbar-dark" style="position:sticky;top:0;z-index:50;padding:0 1.5rem;">
   <!-- Hamburger (mobile) -->
@@ -14,11 +23,13 @@ $role          = Session::userRole();
     <span class="material-symbols-outlined">menu</span>
   </button>
 
-  <!-- Brand -->
-  <a href="<?= APP_URL ?>" class="topbar-brand" style="color:#fff">
+  <div class="topbar-brand" style="color:#fff;gap:.9rem;min-width:0;flex:1;justify-content:flex-start">
     <span class="material-symbols-outlined" style="color:#a7f3d0">agriculture</span>
-    AgriLink
-  </a>
+    <div style="min-width:0;display:flex;flex-direction:column;line-height:1.15">
+      <span style="font-size:1rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><?= htmlspecialchars($topbarTitle) ?></span>
+      <span style="font-size:.72rem;font-weight:600;color:rgba(255,255,255,.68);white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><?= htmlspecialchars($topbarSubtitle) ?></span>
+    </div>
+  </div>
 
   <!-- Right actions -->
   <div style="display:flex;align-items:center;gap:1rem">

@@ -26,21 +26,34 @@ class BuyerController {
         ];
         $listings = $this->produce->search($filters);
 
-        // "Recommended for you" — top 4 matches from buyer's region
+        // "Recommended for you" — top 4 unique produce types from buyer's region
         $user = (new UserModel())->findById(Session::userId());
         $buyerRegion = $user['region'] ?? '';
         $recommended = [];
         if ($buyerRegion) {
             $regionMatches = $this->produce->getAll(['status' => 'available', 'region' => $buyerRegion]);
-            foreach ($regionMatches as &$p) {
-                $p['match_score'] = 40; // base region score
+            $seen = [];
+            foreach ($regionMatches as $p) {
+                $key = strtolower(trim($p['name']));
+                if (!isset($seen[$key])) {
+                    $seen[$key] = true;
+                    $p['match_score'] = 40;
+                    $recommended[] = $p;
+                    if (count($recommended) >= 4) break;
+                }
             }
-            unset($p);
-            $recommended = array_slice($regionMatches, 0, 4);
         }
         if (empty($recommended)) {
-            // fallback: highest rated/newest
-            $recommended = array_slice($this->produce->getAll(['status' => 'available']), 0, 4);
+            // fallback: highest rated/newest, deduplicated by name
+            $seen = [];
+            foreach ($this->produce->getAll(['status' => 'available']) as $p) {
+                $key = strtolower(trim($p['name']));
+                if (!isset($seen[$key])) {
+                    $seen[$key] = true;
+                    $recommended[] = $p;
+                    if (count($recommended) >= 4) break;
+                }
+            }
         }
 
         $pageTitle = 'Marketplace';

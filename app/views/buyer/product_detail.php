@@ -19,8 +19,14 @@
   <div class="lg:col-span-2">
     <!-- Produce Card -->
     <div class="bg-surface-container-lowest rounded-[2rem] overflow-hidden border border-outline-variant/10 shadow-sm mb-6">
-      <div class="h-56 bg-surface-container flex items-center justify-center">
-        <span class="material-symbols-outlined text-primary" style="font-size:5rem">yard</span>
+      <div class="h-80 relative overflow-hidden">
+        <img src="<?= !empty($listing['image']) ? APP_URL . e($listing['image']) : Helpers::produceImage($listing['name'], $listing['category'] ?? '') ?>"
+             alt="<?= e($listing['name']) ?>"
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+        <div class="absolute bottom-5 left-8">
+          <span class="text-white text-2xl font-extrabold drop-shadow-lg"><?= e($listing['name']) ?></span>
+        </div>
       </div>
       <div class="p-8">
         <div class="flex items-start justify-between mb-4">
@@ -46,7 +52,7 @@
           <div class="bg-surface-container-low rounded-xl p-4 text-center">
             <p class="text-xs text-on-surface-variant uppercase tracking-wider font-bold mb-1">Available</p>
             <p class="text-2xl font-extrabold text-primary"><?= e($listing['quantity']) ?></p>
-            <p class="text-xs text-on-surface-variant"><?= e($listing['unit']) ?>s</p>
+            <p class="text-xs text-on-surface-variant"><?= e($listing['unit']) ?></p>
           </div>
           <div class="bg-surface-container-low rounded-xl p-4 text-center">
             <p class="text-xs text-on-surface-variant uppercase tracking-wider font-bold mb-1">Category</p>
@@ -81,7 +87,7 @@
           </div>
           <div class="flex-1">
             <p class="text-sm font-bold"><?= e($bid['buyer_name'] ?? 'Anonymous') ?></p>
-            <p class="text-xs text-on-surface-variant"><?= e($bid['quantity']) ?> <?= e($listing['unit']) ?>s &bull; <?= date('d M', strtotime($bid['created_at'])) ?></p>
+            <p class="text-xs text-on-surface-variant"><?= e($bid['quantity']) ?> <?= e($listing['unit']) ?> &bull; <?= date('d M', strtotime($bid['created_at'])) ?></p>
           </div>
           <p class="font-extrabold text-primary">₵<?= number_format($bid['bid_price'], 0) ?></p>
           <?php
@@ -108,7 +114,7 @@
         <input type="hidden" name="action" value="place_order">
         <input type="hidden" name="listing_id" value="<?= e($listing['id']) ?>">
         <div class="form-group mb-4">
-          <label class="form-label text-emerald-200 text-xs">Quantity (<?= e($listing['unit']) ?>s)</label>
+          <label class="form-label text-emerald-200 text-xs">Quantity (<?= e($listing['unit']) ?>)</label>
           <input type="number" name="quantity" class="form-input bg-white/20 text-white placeholder-emerald-200/60 border-white/20"
                  placeholder="e.g. 10" min="1" max="<?= e($listing['quantity']) ?>" step="1" required
                  id="order_qty">

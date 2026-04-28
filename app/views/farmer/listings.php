@@ -43,8 +43,10 @@
         <tr class="hover:bg-surface-container-low/30 transition-colors">
           <td class="px-6 py-5">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-primary">yard</span>
+              <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 shadow-sm">
+                <img src="<?= Helpers::produceImage($item['name'], $item['category'] ?? '') ?>"
+                     alt="<?= e($item['name']) ?>"
+                     class="w-full h-full object-cover">
               </div>
               <div>
                 <p class="font-bold text-primary"><?= e($item['name']) ?></p>

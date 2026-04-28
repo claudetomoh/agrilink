@@ -3,6 +3,18 @@
  * Global UI behaviours: sidebar, notifications, alerts, tables, forms
  */
 
+/* ── Global produce image fallback ──────────────────────────────────────── */
+(function() {
+    var FALLBACK = 'https://images.unsplash.com/photo-1776153380872-108ba14dc63d?auto=format&fit=crop&w=400&q=80';
+    document.addEventListener('error', function(e) {
+        var img = e.target;
+        if (img.tagName === 'IMG' && !img.dataset.fbDone) {
+            img.dataset.fbDone = '1';
+            img.src = FALLBACK;
+        }
+    }, true);
+})();
+
 (function() {
     'use strict';
 

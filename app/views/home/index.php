@@ -90,15 +90,36 @@
         </div>
       </div>
       <div class="lg:col-span-6 relative">
-        <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl bg-surface-container-high aspect-[4/3]">
-          <!-- Ghana farm scene representative -->
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/20 flex items-center justify-center">
-            <div class="text-center text-primary">
-              <span class="material-symbols-outlined" style="font-size:120px;font-variation-settings:'FILL' 1;opacity:.2">agriculture</span>
+        <div class="relative" style="aspect-ratio:4/3">
+          <!-- 2×2 Ghana produce photo mosaic -->
+          <div class="grid grid-cols-2 gap-3 h-full">
+            <div class="relative rounded-[1.5rem] overflow-hidden shadow-xl group">
+              <img src="https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600"
+                   alt="Fresh red tomatoes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <span class="absolute bottom-3 left-4 text-white text-sm font-extrabold tracking-wide drop-shadow">Tomatoes</span>
+            </div>
+            <div class="relative rounded-[1.5rem] overflow-hidden shadow-xl group">
+              <img src="https://images.pexels.com/photos/34143558/pexels-photo-34143558.jpeg?auto=compress&cs=tinysrgb&w=600"
+                   alt="White yam" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <span class="absolute bottom-3 left-4 text-white text-sm font-extrabold tracking-wide drop-shadow">Yam</span>
+            </div>
+            <div class="relative rounded-[1.5rem] overflow-hidden shadow-xl group">
+              <img src="https://images.unsplash.com/photo-1667308888281-8030a5f827c5?auto=format&fit=crop&w=600&q=80"
+                   alt="Plantain — Accra, Ghana" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <span class="absolute bottom-3 left-4 text-white text-sm font-extrabold tracking-wide drop-shadow">Plantain</span>
+            </div>
+            <div class="relative rounded-[1.5rem] overflow-hidden shadow-xl group">
+              <img src="https://images.unsplash.com/photo-1625191824758-e00b2c51f388?auto=format&fit=crop&w=600&q=80"
+                   alt="Produce baskets — Kumasi market, Ghana" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <span class="absolute bottom-3 left-4 text-white text-sm font-extrabold tracking-wide drop-shadow">Kumasi Market</span>
             </div>
           </div>
           <!-- Floating stat cards -->
-          <div class="absolute top-4 left-4 glass-card p-4 rounded-2xl border border-white/20 shadow-xl">
+          <div class="absolute top-4 left-4 glass-card p-4 rounded-2xl border border-white/20 shadow-xl z-10">
             <div class="flex items-center gap-3">
               <div class="p-2 bg-primary-container rounded-xl">
                 <span class="material-symbols-outlined text-primary">trending_up</span>
@@ -109,7 +130,7 @@
               </div>
             </div>
           </div>
-          <div class="absolute bottom-4 right-4 glass-card p-4 rounded-2xl border border-white/20 shadow-xl">
+          <div class="absolute bottom-4 right-4 glass-card p-4 rounded-2xl border border-white/20 shadow-xl z-10">
             <div class="flex items-center gap-3">
               <div class="p-2 bg-tertiary-container rounded-xl">
                 <span class="material-symbols-outlined text-tertiary">local_shipping</span>

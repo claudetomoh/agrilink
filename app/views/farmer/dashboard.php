@@ -24,7 +24,7 @@ include BASE_PATH . '/app/views/partials/head.php';
     </p>
   </div>
   <a href="<?= APP_URL ?>/farmer/listings/add"
-     class="flex items-center gap-2 bg-primary-container text-on-primary px-6 py-3 rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-primary-container/20">
+     class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/20">
     <span class="material-symbols-outlined">add_circle</span>Add New Produce
   </a>
 </div>
@@ -34,7 +34,7 @@ include BASE_PATH . '/app/views/partials/head.php';
   <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
 
     <!-- Total Revenue -->
-    <div class="bg-primary-container p-8 rounded-[2rem] text-white flex flex-col justify-between relative overflow-hidden">
+    <div class="bg-primary p-8 rounded-[2rem] text-white flex flex-col justify-between relative overflow-hidden">
       <div class="absolute top-0 right-0 p-8 opacity-10">
         <span class="material-symbols-outlined" style="font-size:5rem">payments</span>
       </div>
@@ -59,9 +59,9 @@ include BASE_PATH . '/app/views/partials/head.php';
         </h2>
       </div>
       <div class="flex -space-x-3 mt-4">
-        <?php foreach (['yard'=>'emerald','agriculture'=>'orange','eco'=>'yellow'] as $icon=>$col): ?>
-        <div class="w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-<?=$col?>-100 flex items-center justify-center">
-          <span class="material-symbols-outlined text-<?=$col?>-700"><?=$icon?></span>
+        <?php foreach (['Tomato'=>'tomato','Yam'=>'yam','Cocoa'=>'cocoa'] as $pname=>$pcat): ?>
+        <div class="w-10 h-10 rounded-full border-2 border-white overflow-hidden flex-shrink-0 shadow-sm" title="<?= $pname ?>">
+          <img src="<?= Helpers::produceImage($pname, $pcat) ?>" alt="<?= $pname ?>" class="w-full h-full object-cover">
         </div>
         <?php endforeach; ?>
       </div>
@@ -135,8 +135,10 @@ include BASE_PATH . '/app/views/partials/head.php';
           <tr class="hover:bg-surface-container-low/30 transition-colors">
             <td class="px-8 py-6">
               <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center">
-                  <span class="material-symbols-outlined text-primary">yard</span>
+                <div class="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0 shadow-sm">
+                  <img src="<?= Helpers::produceImage($item['name'], $item['category'] ?? '') ?>"
+                       alt="<?= e($item['name']) ?>"
+                       class="w-full h-full object-cover">
                 </div>
                 <div>
                   <p class="font-extrabold text-primary"><?= e($item['name']) ?></p>

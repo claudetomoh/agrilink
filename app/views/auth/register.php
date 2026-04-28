@@ -8,7 +8,7 @@ include __DIR__ . '/../partials/head.php';
 <div class="auth-wrap">
   <!-- Hero Side -->
   <div class="auth-hero">
-    <img src="https://images.unsplash.com/photo-1610706232906-cc44d9d97d69?w=1200&q=80" alt="Ghana market" class="auth-hero-img">
+    <img src="https://images.unsplash.com/photo-1625191824758-e00b2c51f388?auto=format&fit=crop&w=1200&q=80" alt="Fruit baskets at Kumasi market, Ghana" class="auth-hero-img">
     <div class="auth-hero-content">
       <div class="hero-tag" style="color:rgba(255,255,255,.9)">
         <span class="material-symbols-outlined" style="font-size:.9rem">groups</span>

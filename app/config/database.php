@@ -10,9 +10,10 @@ class Database {
 
     public static function connect(): PDO {
         if (self::$instance === null) {
+            $port = defined('DB_PORT') ? (';port=' . DB_PORT) : '';
             $dsn = sprintf(
-                'mysql:host=%s;dbname=%s;charset=%s',
-                DB_HOST, DB_NAME, DB_CHARSET
+                'mysql:host=%s%s;dbname=%s;charset=%s',
+                DB_HOST, $port, DB_NAME, DB_CHARSET
             );
             $options = [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

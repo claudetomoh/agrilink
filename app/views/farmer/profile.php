@@ -14,24 +14,31 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
   <!-- Profile Card -->
   <div class="lg:col-span-1">
-    <div class="bg-surface-container-lowest rounded-[2rem] p-8 border border-outline-variant/10 shadow-sm text-center">
-      <div class="w-24 h-24 rounded-full bg-primary-container flex items-center justify-center mx-auto mb-4">
-        <span class="text-4xl font-extrabold text-white"><?= strtoupper(substr($user['name'], 0, 1)) ?></span>
+    <div class="bg-surface-container-lowest rounded-[2rem] overflow-hidden border border-outline-variant/10 shadow-sm text-center">
+      <!-- Farm cover photo -->
+      <div class="relative h-28 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1667308888281-8030a5f827c5?auto=format&fit=crop&w=600&q=80"
+             alt="Ghana farm" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
       </div>
-      <h2 class="text-xl font-extrabold text-primary"><?= e($user['name']) ?></h2>
-      <p class="text-on-surface-variant text-sm mt-1"><?= ucfirst($user['role']) ?></p>
-      <div class="mt-4 flex flex-col gap-2 text-sm text-on-surface-variant">
-        <div class="flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined" style="font-size:1rem">location_on</span>
-          <?= e($user['region'] ?? 'Ghana') ?>
+      <div class="px-8 pb-8 -mt-12">
+        <div class="w-24 h-24 rounded-full bg-primary-container flex items-center justify-center mx-auto mb-4 border-4 border-surface-container-lowest shadow-lg">
+          <span class="text-4xl font-extrabold text-white"><?= strtoupper(substr($user['name'], 0, 1)) ?></span>
         </div>
-        <div class="flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined" style="font-size:1rem">calendar_today</span>
-          Joined <?= date('M Y', strtotime($user['created_at'])) ?>
+        <h2 class="text-xl font-extrabold text-primary"><?= e($user['name']) ?></h2>
+        <p class="text-on-surface-variant text-sm mt-1"><?= ucfirst($user['role']) ?></p>
+        <div class="mt-4 flex flex-col gap-2 text-sm text-on-surface-variant">
+          <div class="flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined" style="font-size:1rem">location_on</span>
+            <?= e($user['region'] ?? 'Ghana') ?>
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined" style="font-size:1rem">calendar_today</span>
+            Joined <?= date('M Y', strtotime($user['created_at'])) ?>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
   <!-- Edit Form -->
   <div class="lg:col-span-2">

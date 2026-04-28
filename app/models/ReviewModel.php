@@ -7,9 +7,11 @@ require_once __DIR__ . '/../config/database.php';
 
 class ReviewModel {
     private PDO $db;
+    private string $userTable;
 
     public function __construct() {
         $this->db = Database::connect();
+        $this->userTable = USER_TABLE;
     }
 
     /**
@@ -33,11 +35,11 @@ class ReviewModel {
     /** All reviews received by a user (as reviewee). */
     public function getForUser(int $userId): array {
         $stmt = $this->db->prepare(
-            'SELECT r.*, u.name AS reviewer_name, u.role AS reviewer_role
-             FROM reviews r
-             JOIN users u ON u.id = r.reviewer_id
-             WHERE r.reviewee_id = ?
-             ORDER BY r.created_at DESC'
+              "SELECT r.*, u.name AS reviewer_name, u.role AS reviewer_role
+               FROM reviews r
+               JOIN {$this->userTable} u ON u.id = r.reviewer_id
+               WHERE r.reviewee_id = ?
+               ORDER BY r.created_at DESC"
         );
         $stmt->execute([$userId]);
         return $stmt->fetchAll();
@@ -66,8 +68,8 @@ class ReviewModel {
     public function getByOrder(int $orderId): array {
         $stmt = $this->db->prepare(
             'SELECT r.*, u.name AS reviewer_name, u.role AS reviewer_role
-             FROM reviews r
-             JOIN users u ON u.id = r.reviewer_id
+               FROM reviews r
+             JOIN ' . $this->userTable . ' u ON u.id = r.reviewer_id
              WHERE r.order_id = ?'
         );
         $stmt->execute([$orderId]);
@@ -80,7 +82,7 @@ class ReviewModel {
             'SELECT u.id, u.name, u.region, u.is_verified,
                     ROUND(AVG(r.rating), 1) AS avg_rating, COUNT(r.id) AS review_count
              FROM reviews r
-             JOIN users u ON u.id = r.reviewee_id
+             JOIN ' . $this->userTable . ' u ON u.id = r.reviewee_id
              WHERE u.role = "farmer"
              GROUP BY u.id
              HAVING review_count > 0

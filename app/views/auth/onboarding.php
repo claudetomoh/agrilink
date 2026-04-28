@@ -123,13 +123,17 @@ $headExtra = '<style>body{font-family:\'Inter\',sans-serif;}h1,h2,h3{font-family
       <div class="bg-surface-container-lowest rounded-2xl shadow-[0px_20px_40px_rgba(40,52,62,0.06)] overflow-hidden">
 
         <!-- Hero image banner -->
-        <div class="h-36 relative overflow-hidden bg-gradient-to-r from-primary to-primary-dim flex items-center px-8">
-          <div class="text-on-primary">
-            <p class="text-[11px] font-bold uppercase tracking-widest opacity-70 mb-1">AgriLink Setup</p>
-            <h2 class="text-2xl font-extrabold leading-tight">Complete Your Profile</h2>
-            <p class="text-sm opacity-80 mt-1">As a <?= e(ucfirst($user['role'])) ?>, your location helps us match you faster.</p>
+        <div class="h-48 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1594904351111-a072f80b1a71?auto=format&fit=crop&w=800&q=80"
+               alt="Ghanaian farm at dawn"
+               class="w-full h-full object-cover object-center">
+          <div class="absolute inset-0 bg-gradient-to-r from-primary/85 to-primary-dim/60 flex items-center px-8">
+            <div class="text-on-primary">
+              <p class="text-[11px] font-bold uppercase tracking-widest opacity-70 mb-1">AgriLink Setup</p>
+              <h2 class="text-2xl font-extrabold leading-tight">Complete Your Profile</h2>
+              <p class="text-sm opacity-80 mt-1">As a <?= e(ucfirst($user['role'])) ?>, your location helps us match you faster.</p>
+            </div>
           </div>
-          <span class="material-symbols-outlined text-white/10 absolute right-4 text-[9rem] leading-none select-none">agriculture</span>
         </div>
 
         <div class="p-8 md:p-10 space-y-6">

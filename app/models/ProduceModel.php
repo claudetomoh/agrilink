@@ -7,9 +7,11 @@ require_once __DIR__ . '/../config/database.php';
 
 class ProduceModel {
     private PDO $db;
+    private string $userTable;
 
     public function __construct() {
         $this->db = Database::connect();
+        $this->userTable = USER_TABLE;
     }
 
     public function getAll(array $filters = []): array {
@@ -37,11 +39,11 @@ class ProduceModel {
             $where[] = 'p.farmer_id = ?';
             $params[] = $filters['farmer_id'];
         }
-        if (isset($filters['min_price'])) {
+        if (!empty($filters['min_price'])) {
             $where[] = 'p.price_per_unit >= ?';
             $params[] = $filters['min_price'];
         }
-        if (isset($filters['max_price'])) {
+        if (!empty($filters['max_price'])) {
             $where[] = 'p.price_per_unit <= ?';
             $params[] = $filters['max_price'];
         }
@@ -72,7 +74,7 @@ class ProduceModel {
                        COALESCE(rv.avg_rating, 0) AS farmer_avg_rating,
                        COALESCE(rv.review_count, 0) AS farmer_review_count
                 FROM produce p
-                JOIN users u ON u.id = p.farmer_id
+                JOIN {$this->userTable} u ON u.id = p.farmer_id
                 LEFT JOIN (
                     SELECT reviewee_id,
                            ROUND(AVG(rating),1) AS avg_rating,
@@ -87,9 +89,9 @@ class ProduceModel {
     }
 
     public function findById(int $id): array|false {
-        $sql = 'SELECT p.*, u.name AS farmer_name, u.phone AS farmer_phone, u.region AS farmer_region, u.town AS farmer_town
-                FROM produce p JOIN users u ON u.id = p.farmer_id
-                WHERE p.id = ? LIMIT 1';
+        $sql = "SELECT p.*, u.name AS farmer_name, u.phone AS farmer_phone, u.region AS farmer_region, u.town AS farmer_town
+            FROM produce p JOIN {$this->userTable} u ON u.id = p.farmer_id
+            WHERE p.id = ? LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch();
