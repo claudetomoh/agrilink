@@ -1,3 +1,3 @@
-<!-- deflate_addd
 
-de -->
+<?php
+header("public/index.php");
