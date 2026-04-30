@@ -169,10 +169,10 @@ class Helpers {
             'cocoyam'    => 'https://images.pexels.com/photos/31579980/pexels-photo-31579980.jpeg?auto=compress&cs=tinysrgb&w={w}',  // taro/cocoyam plant ✓
             'taro'       => 'https://images.pexels.com/photos/31579980/pexels-photo-31579980.jpeg?auto=compress&cs=tinysrgb&w={w}',  // taro leaves ✓
             'watermelon' => 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w={w}',  // watermelon ✓
-            'pineapple'  => '1550258987-190a2d41a8ba',  // pineapple ✓
-            'plantain'   => '1667308888281-8030a5f827c5',  // plantain/banana tree ✓
+            'pineapple'  => 'https://images.pexels.com/photos/1028714/pexels-photo-1028714.jpeg?auto=compress&cs=tinysrgb&w={w}',  // pineapple fruit ✓
+            'plantain'   => 'https://images.pexels.com/photos/1093038/pexels-photo-1093038.jpeg?auto=compress&cs=tinysrgb&w={w}',  // plantain/banana bunch ✓
             'groundnut'  => 'https://images.pexels.com/photos/209371/pexels-photo-209371.jpeg?auto=compress&cs=tinysrgb&w={w}',  // peanuts/groundnuts ✓
-            'sorghum'    => '1665904285523-47c0a6fdfc0e',  // Ghana market ✓
+            'sorghum'    => 'https://images.pexels.com/photos/326082/pexels-photo-326082.jpeg?auto=compress&cs=tinysrgb&w={w}',  // sorghum/grain field ✓
             'cassava'    => 'https://images.pexels.com/photos/30893342/pexels-photo-30893342.jpeg?auto=compress&cs=tinysrgb&w={w}',  // sliced cassava tubers ✓
             'cowpea'     => 'https://images.pexels.com/photos/3671651/pexels-photo-3671651.jpeg?auto=compress&cs=tinysrgb&w={w}',  // cowpea bean pods ✓
             // --- simple keywords after ---
@@ -181,22 +181,22 @@ class Helpers {
             'maize'      => 'https://images.pexels.com/photos/547263/pexels-photo-547263.jpeg?auto=compress&cs=tinysrgb&w={w}',  // corn cobs ✓
             'corn'       => 'https://images.pexels.com/photos/547263/pexels-photo-547263.jpeg?auto=compress&cs=tinysrgb&w={w}',  // corn cobs ✓
             'rice'       => 'https://images.pexels.com/photos/35072278/pexels-photo-35072278.jpeg?auto=compress&cs=tinysrgb&w={w}',  // rice harvest field ✓
-            'banana'     => '1667308888281-8030a5f827c5',  // plantain/banana tree ✓
-            'pepper'     => '1665904285523-47c0a6fdfc0e',  // chilli vendor — Ghana market ✓
-            'chili'      => '1665904285523-47c0a6fdfc0e',  // Ghana chili market ✓
+            'banana'     => 'https://images.pexels.com/photos/1093038/pexels-photo-1093038.jpeg?auto=compress&cs=tinysrgb&w={w}',  // banana bunch ✓
+            'pepper'     => 'https://images.pexels.com/photos/1458694/pexels-photo-1458694.jpeg?auto=compress&cs=tinysrgb&w={w}',  // red chilli peppers ✓
+            'chili'      => 'https://images.pexels.com/photos/1458694/pexels-photo-1458694.jpeg?auto=compress&cs=tinysrgb&w={w}',  // chilli peppers ✓
             'ginger'     => 'https://images.pexels.com/photos/10112136/pexels-photo-10112136.jpeg?auto=compress&cs=tinysrgb&w={w}',  // ginger roots ✓
             'mango'      => 'https://images.pexels.com/photos/2935021/pexels-photo-2935021.jpeg?auto=compress&cs=tinysrgb&w={w}',  // mango on tree ✓
             'peanut'     => 'https://images.pexels.com/photos/209371/pexels-photo-209371.jpeg?auto=compress&cs=tinysrgb&w={w}',  // peanuts ✓
             'shea'       => 'https://images.pexels.com/photos/12392906/pexels-photo-12392906.jpeg?auto=compress&cs=tinysrgb&w={w}',  // shea nuts/kernels ✓
-            'onion'      => '1665904285523-47c0a6fdfc0e',  // Ghana market ✓
+            'onion'      => 'https://images.pexels.com/photos/144206/pexels-photo-144206.jpeg?auto=compress&cs=tinysrgb&w={w}',  // red/brown onions ✓
             'palm'       => 'https://images.pexels.com/photos/35536889/pexels-photo-35536889.jpeg?auto=compress&cs=tinysrgb&w={w}',  // palm tree with fruit ✓
             'bean'       => 'https://images.pexels.com/photos/3671651/pexels-photo-3671651.jpeg?auto=compress&cs=tinysrgb&w={w}',  // bean pods ✓
             'legume'     => 'https://images.pexels.com/photos/3671651/pexels-photo-3671651.jpeg?auto=compress&cs=tinysrgb&w={w}',  // legume pods ✓
-            'yam'        => '1776153380872-108ba14dc63d',  // Kumasi market ✓
-            'vegetable'  => '1665904285523-47c0a6fdfc0e',  // Ghana market ✓
+            'yam'        => 'https://images.pexels.com/photos/34143558/pexels-photo-34143558.jpeg?auto=compress&cs=tinysrgb&w={w}',  // white yam tubers ✓
+            'vegetable'  => 'https://images.pexels.com/photos/1458694/pexels-photo-1458694.jpeg?auto=compress&cs=tinysrgb&w={w}',  // colourful vegetables ✓
             'fruit'      => 'https://images.pexels.com/photos/2935021/pexels-photo-2935021.jpeg?auto=compress&cs=tinysrgb&w={w}',  // tropical fruit ✓
         ];
-        $asset = '1776153380872-108ba14dc63d'; // default: Kumasi marketplace, Ghana ✓
+        $asset = 'https://images.pexels.com/photos/1393382/pexels-photo-1393382.jpeg?auto=compress&cs=tinysrgb&w={w}'; // default: colourful produce market ✓
         foreach ($map as $keyword => $photoId) {
             if (str_contains($text, $keyword)) {
                 $asset = $photoId;
