@@ -72,7 +72,7 @@
           AgriLink brings Ghanaian farmers, buyers, and transporters together on one platform — eliminating middlemen, reducing waste, and growing incomes across all 16 regions.
         </p>
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="<?= APP_URL ?>/register" class="px-8 py-4 rounded-full bg-gradient-to-br from-primary to-primary-dim text-on-primary font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+          <a href="<?= APP_URL ?>/register" class="px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 shadow-lg hover:scale-[1.02] transition-transform" style="background:linear-gradient(135deg,#2c694e,#1e5d43);color:#ffffff;">
             Start Selling Produce
             <span class="material-symbols-outlined">arrow_forward</span>
           </a>

@@ -23,11 +23,18 @@
             You don't have permission to access this page.<br>
             Please log in with a different account or go back.
         </p>
-        <div class="flex gap-3 justify-center">
+        <div class="flex gap-3 justify-center flex-wrap">
+            <?php if (class_exists('Session') && Session::isLoggedIn()): ?>
+            <a href="<?= APP_URL ?>/<?= htmlspecialchars(Session::userRole()) ?>/dashboard"
+               class="px-5 py-2.5 rounded-xl bg-[#2c694e] text-white text-sm font-semibold hover:bg-[#1e5d43] transition-colors">
+                Go to My Dashboard
+            </a>
+            <?php else: ?>
             <a href="<?= APP_URL ?>/login"
                class="px-5 py-2.5 rounded-xl bg-[#2c694e] text-white text-sm font-semibold hover:bg-[#1e5d43] transition-colors">
                 Log In
             </a>
+            <?php endif; ?>
             <button onclick="history.back()"
                     class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors">
                 Go Back

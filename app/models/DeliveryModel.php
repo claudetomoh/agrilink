@@ -22,7 +22,7 @@ class DeliveryModel {
     }
 
     public function findById(int $id): array|false {
-        $sql = 'SELECT d.*, o.order_ref, o.total_price,
+        $sql = "SELECT d.*, o.order_ref, o.total_price,
                        b.name AS buyer_name, b.phone AS buyer_phone,
                        f.name AS farmer_name, f.phone AS farmer_phone,
                        p.name AS produce_name, o.quantity, o.unit,
@@ -33,7 +33,7 @@ class DeliveryModel {
                 JOIN {$this->userTable} f ON f.id = o.farmer_id
                 JOIN produce p ON p.id = o.produce_id
                 LEFT JOIN {$this->userTable} t ON t.id = d.transport_id
-                WHERE d.id = ? LIMIT 1';
+                WHERE d.id = ? LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch();

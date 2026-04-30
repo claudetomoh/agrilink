@@ -62,7 +62,7 @@ $headExtra = '<style>body{font-family:\'Inter\',sans-serif;}h1,h2,h3{font-family
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-on-surface leading-tight tracking-tight">
           Cultivating your
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dim"> digital field.</span>
+          <span style="background-image:linear-gradient(to right,#2c694e,#1e5d43);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#2c694e"> digital field.</span>
         </h1>
         <p class="text-outline text-base max-w-sm leading-relaxed">
           Setting up your AgriLink profile takes less than two minutes. We'll tailor your experience to your role and region.
@@ -215,7 +215,8 @@ $headExtra = '<style>body{font-family:\'Inter\',sans-serif;}h1,h2,h3{font-family
                 Skip for later
               </a>
               <button type="submit"
-                      class="bg-gradient-to-br from-primary to-primary-dim text-white px-10 py-3 rounded-lg font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform active:scale-95 flex items-center gap-2 text-sm">
+                      class="px-10 py-3 rounded-lg font-bold hover:scale-[1.02] transition-transform active:scale-95 flex items-center gap-2 text-sm"
+                      style="background:linear-gradient(135deg,#2c694e,#1e5d43);color:#ffffff;box-shadow:0 4px 15px rgba(44,105,78,0.3)">
                 Complete Setup
                 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
               </button>

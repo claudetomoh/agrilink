@@ -110,9 +110,7 @@ include __DIR__ . '/../partials/head.php';
       </div>
 
       <div style="margin:1.25rem 0;font-size:.8rem;color:var(--on-surface-variant)">
-        By creating an account you agree to AgriLink's
-        <a href="#" style="color:var(--primary)">Terms of Service</a> and
-        <a href="#" style="color:var(--primary)">Privacy Policy</a>.
+        By creating an account you agree to AgriLink's Terms of Service and Privacy Policy.
       </div>
 
       <button type="submit" class="btn btn-primary btn-full btn-lg">

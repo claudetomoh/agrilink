@@ -93,6 +93,11 @@ class BuyerController {
             Auth::redirect('/buyer/product?id=' . $listingId);
         }
 
+        if ((int)$listing['farmer_id'] === $buyerId) {
+            Session::setFlash('error', 'You cannot purchase your own listing.');
+            Auth::redirect('/buyer/marketplace');
+        }
+
         $total = $quantity * $listing['price_per_unit'];
         $this->order->create([
             'produce_id'   => $listingId,
