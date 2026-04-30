@@ -9,6 +9,7 @@ public/uploads/produce/*
 # Environment / secrets
 .env
 .env.*
+!.env.example
 app/config/secrets.php
 
 # Database credentials — NEVER commit the real config
