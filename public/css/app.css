@@ -782,19 +782,17 @@ table.data-table tbody tr:hover {
     filter: blur(2px);
     transform: scale(1.05);
     opacity: 1;
+    z-index: 0;
 }
 
+
 /* Dark gradient scrim — sits between image and text */
+
 .auth-hero::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, .88) 0%,
-        rgba(0, 0, 0, .60) 45%,
-        rgba(0, 0, 0, .25) 100%
-    );
+    background: linear-gradient( to top, rgba(0, 0, 0, .88) 0%, rgba(0, 0, 0, .60) 45%, rgba(0, 0, 0, .25) 100%);
     z-index: 1;
 }
 
@@ -808,14 +806,14 @@ table.data-table tbody tr:hover {
     font-size: 2.5rem;
     line-height: 1.1;
     margin-bottom: 1rem;
-    text-shadow: 0 2px 14px rgba(0,0,0,.7);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, .7);
 }
 
 .auth-hero p {
     font-size: 1rem;
     opacity: .92;
     max-width: 400px;
-    text-shadow: 0 1px 8px rgba(0,0,0,.8);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .8);
 }
 
 .auth-panel {

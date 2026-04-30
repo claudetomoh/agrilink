@@ -59,7 +59,7 @@
     };
   </script>
   <!-- App CSS -->
-  <link rel="stylesheet" href="<?= APP_URL ?>/css/app.css">
+  <link rel="stylesheet" href="<?= APP_URL ?>/css/app.css?v=<?= filemtime(BASE_PATH.'/public/css/app.css') ?>">
   <link rel="stylesheet" href="<?= APP_URL ?>/css/icons.css">
   <?php if (!empty($extraCSS)) foreach ($extraCSS as $css): ?>
   <link rel="stylesheet" href="<?= htmlspecialchars($css) ?>">
