@@ -169,7 +169,7 @@ class Helpers {
             'cocoyam'    => 'https://images.pexels.com/photos/31579980/pexels-photo-31579980.jpeg?auto=compress&cs=tinysrgb&w={w}',  // taro/cocoyam plant ✓
             'taro'       => 'https://images.pexels.com/photos/31579980/pexels-photo-31579980.jpeg?auto=compress&cs=tinysrgb&w={w}',  // taro leaves ✓
             'watermelon' => 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w={w}',  // watermelon ✓
-            'pineapple'  => 'https://images.pexels.com/photos/1028714/pexels-photo-1028714.jpeg?auto=compress&cs=tinysrgb&w={w}',  // pineapple fruit ✓
+            'pineapple'  => 'https://images.pexels.com/photos/947879/pexels-photo-947879.jpeg?auto=compress&cs=tinysrgb&w={w}',  // pineapple fruit ✓
             'plantain'   => 'https://images.pexels.com/photos/1093038/pexels-photo-1093038.jpeg?auto=compress&cs=tinysrgb&w={w}',  // plantain/banana bunch ✓
             'groundnut'  => 'https://images.pexels.com/photos/209371/pexels-photo-209371.jpeg?auto=compress&cs=tinysrgb&w={w}',  // peanuts/groundnuts ✓
             'sorghum'    => 'https://images.pexels.com/photos/326082/pexels-photo-326082.jpeg?auto=compress&cs=tinysrgb&w={w}',  // sorghum/grain field ✓

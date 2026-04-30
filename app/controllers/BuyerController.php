@@ -24,7 +24,8 @@ class BuyerController {
             'max_price'    => (float)($_GET['max_price'] ?? 0),
             'verified_only'=> !empty($_GET['verified_only']),
         ];
-        $listings = $this->produce->search($filters);
+        // Always show only available produce in the marketplace
+        $listings = $this->produce->search($filters + ['status' => 'available']);
 
         // "Recommended for you" — top 4 unique produce types from buyer's region
         $user = (new UserModel())->findById(Session::userId());
@@ -54,6 +55,12 @@ class BuyerController {
                     if (count($recommended) >= 4) break;
                 }
             }
+        }
+
+        // Exclude recommended items from the main grid to prevent duplication
+        if (!empty($recommended)) {
+            $recommendedIds = array_column($recommended, 'id');
+            $listings = array_values(array_filter($listings, fn($l) => !in_array($l['id'], $recommendedIds)));
         }
 
         $pageTitle = 'Marketplace';
