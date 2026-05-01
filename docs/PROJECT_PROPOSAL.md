@@ -83,11 +83,11 @@ By the end of the project, the team expects to deliver:
 | Role | Member | Responsibilities |
 |---|---|---|
 | **Product Owner** | Tomoh Ikfingeh | Maintains product backlog, defines user stories, accepts or rejects sprint output |
-| **Scrum Master** | Tomoh Ikfingeh | Facilitates sprint ceremonies, removes blockers, ensures Scrum adherence |
+| **Scrum Master** | Mariana Eib | Facilitates sprint ceremonies, removes blockers, ensures Scrum adherence |
 | **Lead Developer** | Tomoh Ikfingeh | Core MVC architecture, security layer, matching engine, test suite |
-| **Frontend Developer** | *(Team Member — update with name)* | View templates, CSS design tokens, responsive layouts |
-| **Backend Developer** | *(Team Member — update with name)* | Database schema, model layer, REST-style routing |
-| **QA / Documentation** | *(Team Member — update with name)* | Test plan authoring, sprint documentation, defect logging |
+| **Frontend Developer** | Tomoh Claude | View templates, CSS design tokens, responsive layouts |
+| **Backend Developer** | Albert Soaliye | Database schema, model layer, REST-style routing |
+| **QA / Documentation** | Kingsford Amissah | Test plan authoring, sprint documentation, defect logging |
 
 > **Note:** As the individual contributor for CS 415, Tomoh Ikfingeh took on all engineering roles for this submission. The role assignments above reflect the intended split in a full-team context.
 

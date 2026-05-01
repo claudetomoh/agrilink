@@ -54,11 +54,11 @@ This reduces search friction by surfacing the highest-relevance produce first �
 | Scrum Role | Member | Sprint Responsibilities |
 |---|---|---|
 | **Product Owner** | Tomoh Ikfingeh | Product backlog, user story prioritisation, sprint acceptance |
-| **Scrum Master** | Tomoh Ikfingeh | Sprint ceremonies, blocker removal, velocity tracking |
+| **Scrum Master** | Mariana Eib | Sprint ceremonies, blocker removal, velocity tracking |
 | **Lead Developer** | Tomoh Ikfingeh | MVC architecture, security layer, matching engine, test suite |
-| **Frontend Developer** | *(Team Member)* | View templates, CSS design system, responsive layouts |
-| **Backend Developer** | *(Team Member)* | Database schema, model layer, RBAC routing |
-| **QA / Documentation** | *(Team Member)* | Test plan, sprint docs, defect log |
+| **Frontend Developer** | Tomoh Ikfingeh | View templates, CSS design system, responsive layouts |
+| **Backend Developer** | Albert Soaliye | Database schema, model layer, RBAC routing |
+| **QA / Documentation** | Kingsford Amissah | Test plan, sprint docs, defect log |
 
 **Project Management Tool:** GitHub Projects (Kanban board at github.com/claudetomoh/agrilink/projects) — tracks user stories from Backlog → In Progress → Done across sprints.
 

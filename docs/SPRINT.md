@@ -14,11 +14,11 @@
 | Scrum Role | Member | Responsibilities |
 |---|---|---|
 | **Product Owner** | Tomoh Ikfingeh | Product backlog ownership, user story acceptance criteria, sprint goal sign-off |
-| **Scrum Master** | Tomoh Ikfingeh | Sprint ceremonies, blocker removal, velocity tracking, retrospective facilitation |
+| **Scrum Master** | Mariana Eib | Sprint ceremonies, blocker removal, velocity tracking, retrospective facilitation |
 | **Lead Developer** | Tomoh Ikfingeh | MVC architecture, security layer, matching engine, unit test suite |
-| **Frontend Developer** | *(Team Member — update)* | View templates, CSS design token system, responsive layouts |
-| **Backend Developer** | *(Team Member — update)* | Database schema, model layer, RBAC routing |
-| **QA / Documentation** | *(Team Member — update)* | Test plan, sprint documentation, defect log |
+| **Frontend Developer** | Tomoh Ikfingeh | View templates, CSS design token system, responsive layouts |
+| **Backend Developer** | Albert Soaliye | Database schema, model layer, RBAC routing |
+| **QA / Documentation** | Kingsford Amissah | Test plan, sprint documentation, defect log |
 
 > As individual contributor for this submission, Tomoh Ikfingeh fulfilled all engineering roles.
 
